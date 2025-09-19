@@ -5,7 +5,7 @@ import { Mail, Github, Linkedin, MapPin } from "lucide-react";
 export default function Hero() {
 return (
     <section className="relative">
-    <div className="mx-auto max-w-6xl px-4 md:px-6 pt-28 pb-16 md:pt-36 md:pb-24">
+    <div className="mx-auto max-w-6xl px-4 md:px-6 pt-10 pb-10 md:pt-12 md:pb-14">
         {/* Título */}
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl">
         <span className="bg-gradient-to-r from-cyan-300 via-white to-violet-300 bg-clip-text text-transparent">
@@ -54,7 +54,7 @@ return (
             </Link>
             </div>
         </div>
-        
+
        {/* Acciones */}
             <div className="mt-8 flex flex-wrap items-center gap-3">
             <a

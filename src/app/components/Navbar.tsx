@@ -22,7 +22,7 @@ export default function Navbar() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
     return (
-    <header className="sticky top-0 z-50 w-full bg-transparent">
+   <header className="fixed inset-x-0 top-0 z-50 w-full">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
         <nav className="mb-0 flex items-center justify-between rounded-2xl px-2 py-2 bg-transparent">
           {/* Botón de info (reemplaza el LC y color) */}

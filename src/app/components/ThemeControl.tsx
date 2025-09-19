@@ -100,7 +100,7 @@ export default function ThemeControl() {
         type="button"
         onClick={toggleTheme}
         aria-label="Cambiar entre claro/oscuro"
-        className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/85 hover:bg-white/10"
+        className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-1.5 text-sm leading-none text-white/90 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
         >
         {/* Punto de color DENTRO (abre picker) */}
         <span
