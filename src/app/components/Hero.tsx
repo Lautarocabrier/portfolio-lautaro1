@@ -54,19 +54,21 @@ return (
             </Link>
             </div>
         </div>
-
-        {/* Acciones (si querés mantenerlas) */}
-        <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Link
-            href="/about"
-            className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-            >
-            Sobre mí
-            </Link>
+        
+       {/* Acciones */}
+            <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
-            href="/cv.pdf"
-            className="text-sm underline underline-offset-4 decoration-cyan-400 hover:text-cyan-300"
-        >
+                href="/about"
+                className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+            >
+                Sobre mí
+            </a>
+
+            <a
+                href="/cv/Lautaro-Cabrier-CV.pdf"
+                download
+                className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+            >
             Descargar CV
         </a>
         </div>

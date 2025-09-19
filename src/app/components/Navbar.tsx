@@ -8,11 +8,11 @@ import ThemeControl from "./ThemeControl";
 import PortfolioInfo from "./PortfolioInfo";
 
 const navItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Experience", href: "/experience" },
-    { name: "Projects", href: "/projects" },
-    { name: "Contact", href: "/contact" },
+    { name: "Inicio", href: "/" },
+    { name: "acerca de", href: "/about" },
+    { name: "Experiencia", href: "/experience" },
+    { name: "Projectos", href: "/projects" },
+    { name: "Contacto", href: "/contact" },
 ];
 
 export default function Navbar() {
