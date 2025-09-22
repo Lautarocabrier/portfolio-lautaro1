@@ -106,7 +106,7 @@ export default function ThemeControl() {
         <span
             onClick={openPicker}
             title="Cambiar color"
-            className="inline-block size-5 rounded-full border border-white/15"
+            className="btn"
             style={{ background: color }}
         />
         <span>Diversión</span>

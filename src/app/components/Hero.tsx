@@ -5,16 +5,16 @@ import { Mail, Github, Linkedin, MapPin } from "lucide-react";
 export default function Hero() {
 return (
     <section className="relative">
-    <div className="mx-auto max-w-6xl px-4 md:px-6 pt-10 pb-10 md:pt-12 md:pb-14">
+    <div className="mx-auto max-w-6xl px-4 md:px-6 pt-18 pb-10 md:pt-26 md:pb-14">
         {/* Título */}
-        <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl">
+        <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl">
         <span className="bg-gradient-to-r from-cyan-300 via-white to-violet-300 bg-clip-text text-transparent">
             Lautaro Cabrier Molina
         </span>
         </h1>
 
         {/* Rol (igual estilo a la referencia) */}
-        <h2 className="mt-2 text-2xl font-bold text-white/95">
+        <h2 className="mt-2 text-3xl font-bold text-white/95">
         Desarrollador de software
         </h2>
 
@@ -57,18 +57,14 @@ return (
 
        {/* Acciones */}
             <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-                href="/about"
-                className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-            >
+            
+                <a href="/about" className="btn">
+            
                 Sobre mí
             </a>
 
             <a
-                href="/cv/Lautaro-Cabrier-CV.pdf"
-                download
-                className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
-            >
+            href="/cv/Lautaro-Cabrier-CV.pdf" download className="btn">
             Descargar CV
         </a>
         </div>

@@ -19,3 +19,17 @@ body{
 html,body{height:100%}
 a{ text-underline-offset:4px; transition:color .2s ease }
 a:hover{ text-decoration-color: rgba(34,211,238,.8) }
+
+.btn{
+  @apply inline-flex items-center justify-center gap-2
+          h-10 px-4 rounded-2xl
+          border border-white/10 bg-white/5
+          text-sm font-medium text-white/90 leading-none
+          transition hover:bg-white/10
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400;
+}
+
+/* Variante más compacta (menos padding/gap) */
+.btn-compact{
+  @apply px-3 gap-1.5;
+}
