@@ -22,6 +22,13 @@ const projects = [
     href: "/projects#ai-trader",
     tags: ["Python", "Streamlit", "yfinance"],
   },
+  {
+    title: "Portfolio",
+    subtitle: "Next.js + TailwindCSS",
+    desc: "Dark mode, animaciones y optimización para SEO y performance.",
+    href: "/projects#portfolio",
+    tags: ["Next.js", "TailwindCSS", "Framer Motion"],
+  },
 ];
 
 export default function HomePage() {
@@ -38,7 +45,8 @@ export default function HomePage() {
             <a
               key={p.title}
               href={p.href}
-              className="relative flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:shadow-[0_20px_50px_rgba(6,182,212,.15)]"
+            className="relative flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:shadow-[0_20px_50px_rgba(255,255,255,.15)]"
+
             >
               <div>
                 <h3 className="text-lg font-semibold tracking-tight">{p.title}</h3>
