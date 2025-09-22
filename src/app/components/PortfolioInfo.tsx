@@ -99,8 +99,7 @@ export default function PortfolioInfo() {
               </p>
 
               <div className="mt-5 flex items-center justify-between">
-                <span className="text-xs text-white/60">
-                  Última actualización: {new Date().toLocaleDateString()}
+                <span className="text-xs text-white/60">             
                 </span>
                 <button
                   onClick={() => setOpen(false)}

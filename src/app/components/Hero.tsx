@@ -29,12 +29,13 @@ return (
           {/* Redes */}
         <div className="flex items-center gap-3">
             <a
-            
-            href="mailto:cabrierlautaro4@gmail.com"
-            className="inline-grid size-9 place-items-center rounded-full border border-white/10 bg-white/5 text-white/85 transition hover:bg-white/10"
-            aria-label="Enviar email"
-                >
-            <Mail className="size-4" />
+        href="https://mail.google.com/mail/?view=cm&fs=1&to=cabrierlautaro4@gmail.com&su=Consulta%20desde%20tu%20portfolio"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-grid size-9 place-items-center rounded-full border border-white/10 bg-white/5 text-white/85 transition hover:bg-white/10"
+        aria-label="Escribirme por Gmail"
+            >
+        <Mail className="size-4" />
             </a>
             <Link
             href="https://github.com/Lautarocabrier"
@@ -62,9 +63,11 @@ return (
             
                 Sobre mí
             </a>
-
-            <a
-            href="/cv/Lautaro-Cabrier-CV.pdf" download className="btn">
+        <a
+            href="/cv/lautaro-cabrier-cv.pdf"
+            download
+            className="btn"
+            >
             Descargar CV
         </a>
         </div>

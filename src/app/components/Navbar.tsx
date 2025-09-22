@@ -7,9 +7,10 @@ import { motion } from "framer-motion";
 import ThemeControl from "./ThemeControl";
 import PortfolioInfo from "./PortfolioInfo";
 
+
 const navItems = [
     { name: "Inicio", href: "/" },
-    { name: "acerca de", href: "/about" },
+    { name: "Acerca de", href: "/about" },
     { name: "Experiencia", href: "/experience" },
     { name: "Proyectos", href: "/projects" },
     { name: "Contacto", href: "/contact" },
@@ -20,16 +21,14 @@ export default function Navbar() {
     const [open, setOpen] = useState(false);
     const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
+return (
 
-    return (
-    <header className="fixed inset-x-0 top-0 z-50 w-full">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <nav className="mb-0 flex items-center justify-between rounded-2xl px-2 py-2 bg-transparent">
-          {/* Botón de info (reemplaza el LC y color) */}
+    <header id="site-header" className="z-[1000] w-full">  <div className="mx-auto max-w-6xl px-4 md:px-6">
+        <nav className="flex h-12 md:h-14 items-center justify-between rounded-2xl bg-transparent">
             <PortfolioInfo />
 
           {/* Desktop: menú + control de tema */}
-            <div className="hidden items-center gap-3 md:flex">
+            <div className="hidden items-center gap-2 md:flex ml-auto">
             <ul className="flex items-center gap-1">
                 {navItems.map((item) => (
                 <li key={item.href}>
@@ -63,34 +62,38 @@ export default function Navbar() {
             >
             Menu
             <span className="sr-only">Abrir/Cerrar</span>
-        </button>
+            </button>
         </nav>
-    </div>
+        </div>
 
-      {/* Drawer Mobile */}
-    {open && (
-        <div id="mobile-menu" className="mx-auto max-w-6xl px-4 md:px-6 md:hidden pb-3">
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-2 backdrop-blur-md">
-            {navItems.map((item) => (
-            <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={`block rounded-xl px-3 py-2 text-sm transition
-                hover:bg-white/10
-                ${isActive(item.href) ? "text-white bg-white/10" : "text-white/80"}`}
-            >
-                {item.name}
-            </Link>
-            ))}
-            <div className="mt-2 flex items-center justify-between">
-              {/* El botón de info también disponible en mobile */}
-            <PortfolioInfo />
-            <ThemeControl />
+      {/* Drawer Mobile (ya lo tenés fijo debajo del header) */}
+        {open && (
+        <div
+            id="mobile-menu"
+            className="fixed inset-x-0 top-[56px] md:top-[64px] z-40 md:hidden"
+        >
+            <div className="mx-auto max-w-6xl px-4 md:px-6 pb-3">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-2">
+                {navItems.map((item) => (
+                <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={`block rounded-xl px-3 py-2 text-sm transition
+                    hover:bg-white/10
+                    ${isActive(item.href) ? "text-white bg-white/10" : "text-white/80"}`}
+                >
+                    {item.name}
+                </Link>
+                ))}
+                <div className="mt-2 flex justify-end">
+                <ThemeControl />
+                </div>
+            </div>
             </div>
         </div>
-        </div>
-    )}
+        )}
     </header>
-);
+
+);      
 }

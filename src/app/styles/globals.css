@@ -1,24 +1,58 @@
 @import "tailwindcss";
 
-/* --- tu CSS de fondo queda igual --- */
+/* ========= PALETA / VARIABLES ========= */
+:root{
+  /* claro */
+  --bg: #0b1116;            /* fondo base celeste oscuro */
+  --fg: #ffffff;
+
+  /* gradientes CLARO */
+  --grad-1: radial-gradient(1000px 600px at 12% -8%, rgba(34,211,238,0.22), transparent 60%);
+  --grad-2: radial-gradient(800px 420px at 85% -10%, rgba(34,211,238,0.12), transparent 60%);
+}
+
+.dark{
+  /* oscuro */
+  --bg: #0a0912;            /* violeta oscuro */
+  --fg: #ffffff;
+
+  /* gradientes OSCURO */
+  --grad-1: radial-gradient(1000px 600px at 85% -8%, rgba(139,92,246,0.26), transparent 60%);
+  --grad-2: radial-gradient(800px 420px at 12% -10%, rgba(139,92,246,0.14), transparent 60%);
+}
+
+/* ========= BASE ========= */
+
+/* El scroll vive en el viewport, no en contenedores */
+html, body{
+  min-height: 100%;
+  height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Fondo liso + texto */
 body{
-  background-color:#0b1116;
-  background-image:
-    radial-gradient(1000px 600px at 12% -8%, rgba(34,211,238,0.22), transparent 60%),
-    radial-gradient(800px 420px at 85% -10%, rgba(34,211,238,0.12), transparent 60%);
-  background-attachment: fixed;
-  color:#fff;
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: background-color 220ms ease, color 220ms ease;
 }
-.dark body{
-  background-color:#0a0912;
-  background-image:
-    radial-gradient(1000px 600px at 85% -8%, rgba(139,92,246,0.26), transparent 60%),
-    radial-gradient(800px 420px at 12% -10%, rgba(139,92,246,0.14), transparent 60%);
-  background-attachment: fixed;
+
+/* Capa de gradientes fija detrás de todo */
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    var(--grad-1),
+    var(--grad-2);
 }
-html,body{height:100%}
-a{ text-underline-offset:4px; transition:color .2s ease }
-a:hover{ text-decoration-color: rgba(34,211,238,.8) }
+
+/* Links y botones utilitarios */
+a{ text-underline-offset:4px; transition: color .2s ease; }
+a:hover{ text-decoration-color: rgba(34,211,238,.8); }
 
 .btn{
   @apply inline-flex items-center justify-center gap-2
@@ -28,8 +62,35 @@ a:hover{ text-decoration-color: rgba(34,211,238,.8) }
           transition hover:bg-white/10
           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400;
 }
+.btn-compact{ @apply px-3 gap-1.5; }
+html, body{
+  min-height: 100%;
+  height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transform: none !important;
+  filter: none !important;
+  perspective: none !important;
+}
 
-/* Variante más compacta (menos padding/gap) */
-.btn-compact{
-  @apply px-3 gap-1.5;
+/* Si algún wrapper estaba “robando” el scroll, lo desactivamos */
+#__next, #root, main, .app, .layout, .page, [data-app-root]{
+  min-height: 100%;
+  height: auto;
+  overflow: visible !important;
+  transform: none !important;
+  filter: none !important;
+  perspective: none !important;
+}
+
+
+/* Evita que algo “tape” la barra por stacking context raros */
+#site-header{ z-index: 9999 !important; }
+
+html, body, #__next {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  transform: none !important;
+  filter: none !important;
+  perspective: none !important;
 }

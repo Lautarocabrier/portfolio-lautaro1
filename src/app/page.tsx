@@ -73,13 +73,13 @@ export default function HomePage() {
           <div className="mt-6 flex justify-center gap-3">
             <a
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium transition hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-2xl border border-white/10 px-4 py-2 text-sm font-medium transition hover:bg-white/10"
             >
               Contactar
             </a>
             <a
               href="/experience"
-              className="inline-flex items-center gap-2 rounded-2xl border border-white/10 px-4 py-2 text-sm font-medium transition hover:border-white/20"
+              className="inline-flex items-center gap-2 rounded-2xl border border-white/10 px-4 py-2 text-sm font-medium transition hover:bg-white/10"
             >
               Experiencia
             </a>
@@ -87,9 +87,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="mx-auto max-w-6xl px-4 md:px-6 pb-10 text-center text-sm text-white/60">
-        © {new Date().getFullYear()} Lautaro Cabrier Molina • Hecho con Next.js
-      </footer>
     </main>
   );
 }
