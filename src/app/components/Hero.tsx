@@ -5,16 +5,16 @@
     export default function Hero() {
     return (
         <section className="relative">
-        <div className="mx-auto max-w-6xl px-4 md:px-6 pt-18 pb-10 md:pt-14 md:pb-14">
+        <div className="mx-auto max-w-6xl px-4 md:px-6 pt-14 pb-10 md:pt-12 md:pb-10">
             {/* Título */}
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl">
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
             <span className="bg-gradient-to-r from-cyan-300 via-white to-violet-300 bg-clip-text text-transparent">
                 Lautaro Cabrier Molina
             </span>
             </h1>
 
             {/* Rol */}
-            <h2 className="mt-2 text-3xl font-bold text-white/95">
+            <h2 className="mt-2 text-2xl font-bold text-white/95">
             Desarrollador de software
             </h2>
 

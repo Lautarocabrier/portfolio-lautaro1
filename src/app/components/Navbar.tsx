@@ -9,7 +9,7 @@
 
     const navItems = [
     { name: "Inicio", href: "/" },
-    { name: "Acerca de", href: "/about" },
+    { name: "Sobre mí", href: "/about" },
     { name: "Experiencia", href: "/experience" },
     { name: "Proyectos", href: "/projects" },
     { name: "Contacto", href: "/contact" },
@@ -27,9 +27,9 @@
     const visibleItems = navItems.filter((item) => !isActive(item.href));
 
     return (
-        <header id="site-header" className="z-[1000] w-full">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-            <nav className="flex h-12 md:h-14 items-center justify-between rounded-2xl bg-transparent">
+    <header id="site-header" className="z-[1000] w-full">
+    <div className="mx-auto max-w-6xl px-4 md:px-6">
+    <nav className="flex h-0 md:h-0 items-center justify-between bg-transparent">
             <PortfolioInfo />
 
             {/* Desktop: menú + control de tema (no ocultamos el activo) */}
