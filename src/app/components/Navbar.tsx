@@ -19,29 +19,29 @@
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
 
-    // 1) Primero definimos isActive
+    // activo
     const isActive = (href: string) =>
         href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-    // 2) Luego filtramos para el menú mobile
+    // mobile: ocultar el activo
     const visibleItems = navItems.filter((item) => !isActive(item.href));
 
     return (
-    <header id="site-header" className="z-[1000] w-full">
-    <div className="mx-auto max-w-6xl px-4 md:px-6">
-    <nav className="flex h-0 md:h-0 items-center justify-between bg-transparent">
+        <header id="site-header" className="z-[1000] w-full">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <nav className="flex items-center justify-between py-3">
             <PortfolioInfo />
 
-            {/* Desktop: menú + control de tema (no ocultamos el activo) */}
-            <div className="hidden items-center gap-2 md:flex ml-auto">
+            {/* Desktop */}
+            <div className="ml-auto hidden items-center gap-2 md:flex">
                 <ul className="flex items-center gap-1">
                 {navItems.map((item) => (
                     <li key={item.href}>
                     <Link
                         href={item.href}
                         className={`relative block rounded-xl px-3 py-2 text-sm transition
-                        hover:text-white/95
-                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400
+                        hover:text-white/95 focus-visible:outline-none
+                        focus-visible:ring-2 focus-visible:ring-cyan-400
                         ${isActive(item.href) ? "text-white" : "text-white/70"}`}
                     >
                         {item.name}
@@ -58,7 +58,7 @@
                 <ThemeControl />
             </div>
 
-            {/* Botón Mobile */}
+            {/* Botón Mobile (si usás una clase de tu botón de descargar, ponla acá) */}
             <button
                 className="md:hidden inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/80 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 aria-controls="mobile-menu"
@@ -71,13 +71,19 @@
             </nav>
         </div>
 
-        {/* Drawer Mobile: acá sí ocultamos la página activa */}
+        {/* Drawer Mobile */}
         {open && (
+            <>
+            {/* Backdrop para cerrar al click afuera */}
+            <button
+                aria-hidden
+                onClick={() => setOpen(false)}
+                className="absoluted inset-0 z-40 md:hidden bg-black/30"
+            />
             <div
-            id="mobile-menu"
-            className="absoluted inset-x-0 top-[56px] md:top-[64px] z-40 md:hidden"
+                id="mobile-menu"
+                className="absoluted inset-x-0 top-[56px] z-50 mx-auto max-w-6xl px-4 md:px-6 md:hidden"
             >
-            <div className="mx-auto max-w-6xl px-4 md:px-6 pb-3">
                 <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-[0_8px_30px_rgba(0,0,0,.12)] p-2">
                 {visibleItems.map((item) => (
                     <Link
@@ -106,7 +112,7 @@
                 </div>
                 </div>
             </div>
-            </div>
+            </>
         )}
         </header>
     );

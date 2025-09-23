@@ -89,9 +89,6 @@ export default function ProjectsPage() {
     <main className="mx-auto max-w-6xl px-4 md:px-6 pt-24 md:pt-28 pb-24">
       <header className="mb-10">
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Proyectos</h1>
-        <p className="mt-3 text-white/80">
-          Selección de proyectos con detalle de stack, funcionalidades y aprendizajes.
-        </p>
       </header>
 
       <div className="space-y-8">

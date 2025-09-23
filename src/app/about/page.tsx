@@ -52,11 +52,10 @@ export default function AboutPage() {
             transition={{ delay: 0.15, duration: 0.5 }}
             className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-white/85 md:text-xl text-center"
         >
-            Soy <span className="font-semibold">Lautaro Cabrier Molina</span>, estudiante avanzado de
-            Desarrollo de Software y <span className="font-semibold">Desarrollador Frontend</span>.
-            Experiencia en <strong>Angular, React, NextJS y PostgreSQL</strong>. Me apasiona el
-            desarrollo web, el diseño UX/UI y actualmente doy mis primeros pasos en{" "}
-            <strong>Testing Automatizado</strong> con Selenium.
+            👋 <span className="font-semibold">Hola, me llamo Lautaro Cabrier Molina</span>.  
+            Soy estudiante avanzado de Desarrollo de Software con foco en el desarrollo frontend, principalmente con <strong>Angular</strong> y <strong>React</strong>.  
+            Además, cuento con formación en <strong>Testing Manual</strong> (diseño y ejecución de casos de prueba, reporte de bugs en Jira) y actualmente estoy dando mis primeros pasos en <strong>Testing Automatizado</strong>, con interés en profundizar en herramientas como <strong>Postman</strong>.  
+            Me apasiona crear interfaces modernas, aplicar buenas prácticas de <strong>UI/UX</strong> y trabajar en equipo bajo metodologías ágiles como Scrum.
         </motion.p>
 
         {/* Tarjeta compacta con highlights (opcional, suma jerarquía visual) */}
@@ -67,58 +66,59 @@ export default function AboutPage() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="card mx-auto mt-10 max-w-3xl p-6"
         >
-            <ul className="grid gap-3 text-sm text-white/85 md:grid-cols-3">
-            <li>⚡ Enfoque: Frontend + UX/UI</li>
-            <li>🧪 QA: Selenium (iniciando)</li>
-            <li>🗂️ Metodologías: Scrum</li>
-            </ul>
         </motion.div>
 
-        {/* Skills principales */}
-        <motion.section
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            className="mt-16"
+       {/* Skills principales */}
+    <motion.section
+    variants={container}
+    initial="hidden"
+    whileInView="show"
+    viewport={{ once: true, amount: 0.2 }}
+    className="mt-12"
+    >
+    <h2 className="text-center text-4xl md:text-5xl font-extrabold mb-8">
+        Skills principales
+    </h2>
+    <div className="flex flex-wrap justify-center gap-4">
+        {skillsMain.map((s) => (
+        <motion.span
+            key={s}
+            variants={item}
+            whileHover={{ scale: 1.08 }}
+            className="px-5 py-2.5 rounded-full bg-gradient-to-r from-primary-400 to-accent-500 
+                    text-base md:text-lg font-semibold text-white shadow-md"
         >
-            <h2 className="text-center text-2xl font-bold">Skills principales</h2>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-            {skillsMain.map((s) => (
-                <motion.span
-                key={s}
-                variants={item}
-                whileHover={{ scale: 1.06 }}
-                className="rounded-full bg-gradient-to-r from-brand-300 via-brand-400 to-brand-500 px-4 py-2 text-sm font-semibold text-white shadow-card"
-                >
-                {s}
-                </motion.span>
-            ))}
-            </div>
-        </motion.section>
+            {s}
+        </motion.span>
+        ))}
+    </div>
+    </motion.section>
 
-        {/* Skills complementarios */}
-        <motion.section
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            className="mt-12"
+    {/* Skills complementarios */}
+    <motion.section
+    variants={container}
+    initial="hidden"
+    whileInView="show"
+    viewport={{ once: true, amount: 0.2 }}
+    className="mt-12"
+    >
+    <h2 className="text-center text-4xl md:text-5xl font-extrabold mb-8">
+        Conocimientos complementarios
+    </h2>
+    <div className="flex flex-wrap justify-center gap-4">
+        {skillsExtra.map((s) => (
+        <motion.span
+            key={s}
+            variants={item}
+            whileHover={{ scale: 1.08 }}
+            className="px-5 py-2.5 rounded-full bg-gradient-to-r from-primary-300 to-primary-500 
+                    text-base md:text-lg font-semibold text-white shadow-md"
         >
-            <h2 className="text-center text-2xl font-bold">Conocimientos complementarios</h2>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-            {skillsExtra.map((s) => (
-            <motion.span
-                key={s}
-                variants={item}
-                whileHover={{ scale: 1.06 }}
-                className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white/90 backdrop-blur-md"
-            >
-                {s}
-                </motion.span>
-            ))}
-            </div>
-        </motion.section>
+            {s}
+        </motion.span>
+        ))}
+    </div>
+    </motion.section>
         </section>
     </main>
     );

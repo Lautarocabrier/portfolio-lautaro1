@@ -1,22 +1,34 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { Mail, MapPin } from "lucide-react";
+import { useMemo, useState } from "react";
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [attempted, setAttempted] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  ) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  // Enviar con mailto (abre el cliente de correo del usuario)
+  const emailOk = useMemo(() => /\S+@\S+\.\S+/.test(form.email), [form.email]);
+  const nameOk = form.name.trim().length > 0;
+  const msgLen = form.message.trim().length;
+  const msgOk = msgLen >= 25;
+  const canSubmit = nameOk && emailOk && msgOk;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const to = "cabrierlautaro4@gmail.com"; // <-- tu email
+    setAttempted(true);
+
+    if (!canSubmit) return;
+
+    const to = "cabrierlautaro4@gmail.com";
     const subject = encodeURIComponent(
       form.subject || `Mensaje desde el portfolio - ${form.name}`
     );
@@ -24,58 +36,32 @@ export default function ContactPage() {
       `Nombre: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
     );
     window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+
     setForm({ name: "", email: "", subject: "", message: "" });
+    setAttempted(false);
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-4 md:px-6 pt-24 md:pt-28 pb-24">
+    <main className="mx-auto max-w-6xl px-4 md:px-6 pt-10 md:pt-12 pb-16">
       <motion.header
-        initial={{ opacity: 0, y: -12 }}
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-center mb-10"
+        transition={{ duration: 0.4 }}
+        className="text-center mb-6"
       >
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Contacto</h1>
-        <p className="mt-3 text-white/80">
+        <p className="mt-2 text-white/80">
           ¿Tenés una propuesta o querés charlar? Escribime y te respondo.
         </p>
       </motion.header>
 
-      <section className="grid gap-6 md:grid-cols-5">
-        {/* Info lateral (izquierda) */}
-        <motion.aside
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-          className="md:col-span-2 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-md"
-        >
-          <h2 className="text-lg font-semibold">Preferís un mail directo?</h2>
-          <a
-            href="mailto:cabrierlautaro4@gmail.com"
-            className="mt-3 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm hover:bg-white/10"
-          >
-            <Mail className="size-4" />
-            cabrierlautaro4@gmail.com
-          </a>
-
-          <div className="mt-5 flex items-center gap-2 text-white/80">
-            <MapPin className="size-4" />
-            Córdoba, Argentina
-          </div>
-
-          <p className="mt-5 text-sm text-white/70 leading-relaxed">
-            También podés escribirme por LinkedIn o abrir un issue en GitHub si
-            querés comentar algo del repo del portfolio.
-          </p>
-        </motion.aside>
-
-        {/* Formulario (derecha) */}
+      <section className="flex justify-center">
         <motion.form
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.5 }}
+          transition={{ duration: 0.45 }}
           onSubmit={handleSubmit}
-          className="md:col-span-3 rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6 backdrop-blur-md"
+          className="w-full max-w-2xl rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 backdrop-blur-md"
         >
           {/* Nombre */}
           <label className="block text-sm font-medium text-white/85">
@@ -87,11 +73,11 @@ export default function ContactPage() {
               onChange={handleChange}
               required
               placeholder="Tu nombre"
-              className="mt-1 w-full rounded-xl border border-white/10 bg-transparent px-3 py-2 text-white/90 placeholder-white/50 outline-none focus:ring-2 focus:ring-cyan-400"
+              className="mt-1 w-full rounded-xl border border-white/10 bg-transparent px-3 py-2 text-white/90 placeholder-white/50 outline-none focus:ring-2 focus:ring-white"
             />
           </label>
 
-          {/* Email + Asunto en grid */}
+          {/* Email + Asunto */}
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label className="block text-sm font-medium text-white/85">
               Email
@@ -102,8 +88,17 @@ export default function ContactPage() {
                 onChange={handleChange}
                 required
                 placeholder="tu@email.com"
-                className="mt-1 w-full rounded-xl border border-white/10 bg-transparent px-3 py-2 text-white/90 placeholder-white/50 outline-none focus:ring-2 focus:ring-cyan-400"
+                className={`mt-1 w-full rounded-xl border bg-transparent px-3 py-2 text-white/90 placeholder-white/50 outline-none focus:ring-2 ${
+                  attempted && !emailOk
+                    ? "border-red-400/60 focus:ring-red-400"
+                    : "border-white/10 focus:ring-white"
+                }`}
               />
+              {attempted && !emailOk && (
+                <span className="mt-1 block text-xs text-red-300/90">
+                  Ingresá un email válido.
+                </span>
+              )}
             </label>
 
             <label className="block text-sm font-medium text-white/85">
@@ -114,7 +109,7 @@ export default function ContactPage() {
                 value={form.subject}
                 onChange={handleChange}
                 placeholder="Consulta / Propuesta / Feedback"
-                className="mt-1 w-full rounded-xl border border-white/10 bg-transparent px-3 py-2 text-white/90 placeholder-white/50 outline-none focus:ring-2 focus:ring-cyan-400"
+                className="mt-1 w-full rounded-xl border border-white/10 bg-transparent px-3 py-2 text-white/90 placeholder-white/50 outline-none focus:ring-2 focus:ring-white"
               />
             </label>
           </div>
@@ -126,27 +121,33 @@ export default function ContactPage() {
               name="message"
               value={form.message}
               onChange={handleChange}
-              required
               placeholder="Escribí tu mensaje…"
-              className="mt-1 h-36 w-full rounded-xl border border-white/10 bg-transparent px-3 py-2 text-white/90 placeholder-white/50 outline-none focus:ring-2 focus:ring-cyan-400"
+              className={`mt-1 h-48 w-full rounded-xl border bg-transparent px-3 py-2 text-white/90 placeholder-white/50 outline-none focus:ring-2 ${
+                form.message.trim().length > 0
+                  ? "border-white focus:ring-white"
+                  : "border-white/10 focus:ring-white"
+              } ${attempted && !msgOk ? "border-red-400/60 focus:ring-red-400" : ""}`}
             />
+            {attempted && !msgOk && (
+              <span className="mt-1 block text-xs text-red-300/90">
+                El mensaje debe tener al menos 25 caracteres.
+              </span>
+            )}
           </label>
 
           {/* Botón */}
           <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: canSubmit ? 1.03 : 1 }}
+            whileTap={{ scale: canSubmit ? 0.98 : 1 }}
             type="submit"
-            className="mt-5 inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+            className={`mt-6 inline-flex items-center justify-center rounded-xl border px-5 py-2 text-sm font-semibold transition ${
+              canSubmit
+                ? "border-white/10 bg-white/10 text-white hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                : "border-white/10 bg-white/5 text-white/50"
+            }`}
           >
             Enviar mensaje
           </motion.button>
-
-          {/* Nota */}
-          <p className="mt-3 text-xs text-white/60">
-            Esto usa <code>mailto:</code> para abrir tu cliente de correo. Si
-            preferís, después lo cambiamos por EmailJS o una API.
-          </p>
         </motion.form>
       </section>
     </main>
