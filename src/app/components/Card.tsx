@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 type CardProps = {
-  title?: string;
-  subtitle?: string;
-  href?: string; // si viene, la Card es clickeable
-  children?: React.ReactNode;
-  footer?: React.ReactNode;
-  className?: string;
+    title?: string;
+    subtitle?: string;
+    href?: string; // si viene, la Card es clickeable
+    children?: React.ReactNode;
+    footer?: React.ReactNode;
+    className?: string;
 };
 
 export default function Card({

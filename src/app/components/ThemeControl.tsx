@@ -24,13 +24,13 @@ export default function ThemeControl() {
       type="button"
       onClick={toggle}
       aria-label="Cambiar tema"
-      className="inline-grid h-9 w-9 md:h-10 md:w-10 place-items-center rounded-2xl
+      className="inline-grid h-9 w-6 md:h-8 md:w-10 place-items-center rounded-2xl
             border border-white/10 bg-white/5 text-white/90
             transition hover:bg-white/10 active:scale-[0.98]
             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
       title="Cambiar tema"
     >
-      <span className="text-lg">{dark ? "🌙" : "☀️"}</span>
+      <span className="text-lg">{dark ? "🟣" : "🔵"}</span>
     </button>
   );
 }

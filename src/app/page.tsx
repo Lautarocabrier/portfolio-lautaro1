@@ -2,11 +2,10 @@ import Hero from "./components/Hero";
 
 const projects = [
   {
-    title: "SIADE",
-    subtitle: "Angular + PostgreSQL",
-    desc: "Sistema académico con roles múltiples, autenticación y avisos segmentados.",
+    title: "SIAD",
+    desc: "Sistema académico con roles múltiples, autenticación segura y avisos segmentados para mejorar la gestión educativa",
     href: "/projects#siade",
-    tags: ["Angular", "PrimeNG", "JWT"],
+    tags: ["Angular" , "nestJS"],
   },
 {
     title: "AI Trader MVP",

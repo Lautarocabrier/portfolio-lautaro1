@@ -28,8 +28,8 @@
 
     return (
         <header id="site-header" className="z-[1000] w-full">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-            <nav className="flex items-center justify-between py-3">
+        <div className="mx-auto max-w-6xl px-4 md:px-6 ">
+            <nav className="flex items-center justify-between py-0">
             <PortfolioInfo />
 
             {/* Desktop */}

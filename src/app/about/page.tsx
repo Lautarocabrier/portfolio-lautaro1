@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 
 // Reutilizamos los datos que ya tenías
 const skillsMain = [
-    "React", "Angular", "NextJS", "PostgreSQL", "TailwindCSS", "PrimeNG", "Git/GitHub", "Docker"
+    "React", "Angular", "CSS", "Html", "TailwindCSS", "PrimeNG", "Git/GitHub", "Docker"
 ];
 const skillsExtra = [
-    "Python", "C#", ".NET", "Selenium", "Node.js", "CI/CD"
+    "Python", "C#", ".NET","NextJS","Postman", "Node.js", "CI/CD","PostgreSQL"
 ];
 
 // Variants para un stagger suave
@@ -34,7 +34,7 @@ export default function AboutPage() {
         <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full grad-brand blur-3xl opacity-15 animate-blob [animation-delay:8s]" />
         </div>
 
-        <section className="mx-auto max-w-5xl px-6 py-20 md:py-28">
+        <section className="mx-auto max-w-5xl px-6 py-14 md:py-16">
         {/* Título */}
         <motion.h1
             initial={{ opacity: 0, y: -16 }}
@@ -52,21 +52,11 @@ export default function AboutPage() {
             transition={{ delay: 0.15, duration: 0.5 }}
             className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-white/85 md:text-xl text-center"
         >
-            👋 <span className="font-semibold">Hola, me llamo Lautaro Cabrier Molina</span>.  
+            <span className="font-semibold">Hola, me llamo Lautaro Cabrier Molina</span>.  
             Soy estudiante avanzado de Desarrollo de Software con foco en el desarrollo frontend, principalmente con <strong>Angular</strong> y <strong>React</strong>.  
             Además, cuento con formación en <strong>Testing Manual</strong> (diseño y ejecución de casos de prueba, reporte de bugs en Jira) y actualmente estoy dando mis primeros pasos en <strong>Testing Automatizado</strong>, con interés en profundizar en herramientas como <strong>Postman</strong>.  
             Me apasiona crear interfaces modernas, aplicar buenas prácticas de <strong>UI/UX</strong> y trabajar en equipo bajo metodologías ágiles como Scrum.
         </motion.p>
-
-        {/* Tarjeta compacta con highlights (opcional, suma jerarquía visual) */}
-        <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="card mx-auto mt-10 max-w-3xl p-6"
-        >
-        </motion.div>
 
        {/* Skills principales */}
     <motion.section

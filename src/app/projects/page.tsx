@@ -86,9 +86,11 @@ function Chip({ children }: { children: React.ReactNode }) {
 
 export default function ProjectsPage() {
   return (
-    <main className="mx-auto max-w-6xl px-4 md:px-6 pt-24 md:pt-28 pb-24">
+    <main className="mx-auto max-w-6xl px-4 md:px-6 pt-13 md:pt-13 pb-24">
       <header className="mb-10">
-        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Proyectos</h1>
+      <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-center mx-auto">
+        Proyectos
+        </h1>
       </header>
 
       <div className="space-y-8">

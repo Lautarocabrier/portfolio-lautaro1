@@ -5,7 +5,7 @@
     export default function Hero() {
     return (
         <section className="relative">
-        <div className="mx-auto max-w-6xl px-4 md:px-6 pt-14 pb-10 md:pt-12 md:pb-10">
+        <div className="mx-auto max-w-6xl px-4 md:px-6 pt-6 pb-10 md:pt-8 md:pb-10">
             {/* Título */}
             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
             <span className="bg-gradient-to-r from-cyan-300 via-white to-violet-300 bg-clip-text text-transparent">

@@ -55,15 +55,18 @@ a:hover{ text-decoration-color: rgba(127, 133, 138, 0.8); }
           transition hover:bg-white/10
           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400;
 }
-.btn-compact{ @apply px-3 gap-1.5; }
-html, body{
-  min-height: 100%;
-  height: auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-  transform: none !important;
-  filter: none !important;
-  perspective: none !important;
+.btn{
+  @apply inline-flex items-center justify-center gap-1.5
+          h-8 px-3 rounded-xl
+          border border-white/10 bg-white/5
+          text-xs font-medium text-white/90 leading-none
+          transition hover:bg-white/10
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400;
+}
+
+/* En pantallas medianas, sube apenas para que no quede minúsculo */
+@screen md{
+  .btn{ @apply h-9 px-4 text-sm; }
 }
 
 /* Evita que algo “tape” la barra por stacking context raros */

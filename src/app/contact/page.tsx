@@ -61,7 +61,7 @@ export default function ContactPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45 }}
           onSubmit={handleSubmit}
-          className="w-full max-w-2xl rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 backdrop-blur-md"
+          className="w-full max-w-3xl rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 backdrop-blur-md"
         >
           {/* Nombre */}
           <label className="block text-sm font-medium text-white/85">
