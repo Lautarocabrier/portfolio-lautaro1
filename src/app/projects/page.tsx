@@ -1,4 +1,3 @@
-// src/app/projects/page.tsx
 "use client";
 
 import { useRef, useState } from "react";
@@ -7,7 +6,6 @@ import { Github, Globe, ExternalLink, Wrench, Brain, FolderGit2 } from "lucide-r
 import Link from "next/link";
 import Reveal from "@/app/components/Reveal";
 import { Stagger, item } from "@/app/components/Stagger";
-// Si tu alias "@/lib/anim" no anda, usa import { ANIM } from "../../lib/anim";
 import { ANIM } from "../../lib/anim";
 
 type Project = {

@@ -14,15 +14,13 @@ import { ANIM } from "../../lib/anim";
             {/* Título */}
             <Reveal>
             <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-                <span className="bg-gradient-to-r from-cyan-300 via-white to-violet-300 bg-clip-text text-transparent">
                 Lautaro Cabrier Molina
-                </span>
             </h1>
             </Reveal>
 
             {/* Rol */}
             <Reveal delay={0.06}>
-            <h2 className="mt-2 text-2xl font-bold text-white/95">
+            <h2 className="mt-2 text-2xl font-bold">
                 Desarrollador de software
             </h2>
             </Reveal>

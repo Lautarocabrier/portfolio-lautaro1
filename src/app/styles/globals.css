@@ -1,82 +1,118 @@
 @import "tailwindcss";
 
-/* ========= PALETA / VARIABLES ========= */
-:root{
-  /* claro */
-  --bg: #0b1116;            /* fondo base celeste oscuro */
-  --fg: #ffffff;
+:root {
+  /* Base claro (Sol refinado) */
+  --bg:        #e9f1f1;
+  --fg:        #0e2626;
+  --muted:     #3a5d5c;
 
-  /* gradientes CLARO */
-  --grad-1: radial-gradient(1000px 600px at 12% -8%, rgba(34,211,238,0.22), transparent 60%);
-  --grad-2: radial-gradient(800px 420px at 85% -10%, rgba(34,211,238,0.12), transparent 60%);
+  /* Superficies y bordes (plata limpio) */
+  --surface:   #0f7a70;
+  --surface-2: #f2f7fa;
+  --border:    #d6e5ea;
+
+  /* Marca / acentos (verde/teal + celestes) */
+  --primary:     #0f7a70;
+  --primary-400: #2dd4bf;
+  --accent:      #7dd3fc;
+  --accent-2:    #22d3ee;
+  --ring:        #21cfe7;
+
+  /* Plata */
+  --silver:     #e9eef3;
+  --silver-ink: #2b3540;
+
+  /* Sombra neutra para claro */
+  --shadow:     0 18px 48px rgba(16,115,105,.10);
 }
 
-.dark{
-  /* oscuro */
-  --bg: #0a0912;            /* violeta oscuro */
-  --fg: #ffffff;
+.dark {
+  /* Base oscuro (Noct) */
+  --bg:        #071f1e;
+  --fg:        #e9fbfb;
+  --muted:     #b7d0cf;
 
-  /* gradientes OSCURO */
-  --grad-1: radial-gradient(1000px 600px at 85% -8%, rgba(139,92,246,0.26), transparent 60%);
-  --grad-2: radial-gradient(800px 420px at 12% -10%, rgba(139,92,246,0.14), transparent 60%);
+  /* Superficies y bordes */
+  --surface:   #0e2a29;
+  --surface-2: #0b2322;
+  --border:    #123433;
+
+  /* Marca / acentos */
+  --primary:   #2dd4bf;
+  --primary-400: #5eead4;
+  --accent:    #7dd3fc;
+  --accent-2:  #22d3ee;
+  --ring:      #22d3ee;
+
+  /* Plata para dark */
+  --silver:    #aeb6bf;
+  --silver-ink:#0b141c;
+
+  /* Sombras */
+  --shadow:    0 20px 50px rgba(34,211,238,.14);
 }
 
-/* ========= BASE ========= */
+/* ============================================================================
+   BASE
+============================================================================ */
+:root { color-scheme: light dark; }
 
-
-/* Fondo liso + texto */
 body{
-  background-color: var(--bg);
+  background: var(--bg);
   color: var(--fg);
   transition: background-color 220ms ease, color 220ms ease;
 }
 
-/* Capa de gradientes fija detrás de todo */
-body::before{
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    var(--grad-1),
-    var(--grad-2);
+/* Links */
+a{ text-underline-offset:4px; transition: color .2s ease, text-decoration-color .2s ease; }
+a:hover{ text-decoration-color: color-mix(in oklab, var(--fg) 40%, transparent); }
+
+/* ============================================================================
+  UTILIDADES DE ESTILO
+============================================================================ */
+.card       { background: var(--surface); border: 1px solid var(--border); }
+.card-ghost { background: color-mix(in oklab, var(--surface) 85%, transparent); }
+.section    { background: var(--surface-2); }
+.border-s   { border-color: var(--border) !important; }
+.text-muted { color: var(--muted) !important; }
+.shadow-brand { box-shadow: var(--shadow); }
+
+/* Texto en gradiente (para títulos). Si no lo querés, borra este bloque también */
+.grad-text {
+  background: linear-gradient(90deg, var(--accent) 0%, #ffffff 45%, var(--primary-400) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 
-/* Links y botones utilitarios */
-a{ text-underline-offset:4px; transition: color .2s ease; }
-a:hover{ text-decoration-color: rgba(127, 133, 138, 0.8); }
-
+/* ============================================================================
+  BOTONES
+============================================================================ */
 .btn{
-  @apply inline-flex items-center justify-center gap-2
-          h-10 px-4 rounded-2xl
-          border border-white/10 bg-white/5
-          text-sm font-medium text-white/90 leading-none
-          transition hover:bg-white/10
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400;
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  height:2.25rem; padding:0 .9rem; border-radius:.9rem;
+  border:1px solid color-mix(in oklab, var(--border) 85%, transparent);
+  background: color-mix(in oklab, var(--surface) 88%, var(--silver) 12%);
+  color: color-mix(in oklab, var(--fg) 92%, var(--silver-ink) 8%);
+  font-size:.875rem; font-weight:600; line-height:1;
+  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+  box-shadow: var(--shadow);
 }
-.btn{
-  @apply inline-flex items-center justify-center gap-1.5
-          h-8 px-3 rounded-xl
-          border border-white/10 bg-white/5
-          text-xs font-medium text-white/90 leading-none
-          transition hover:bg-white/10
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400;
+.btn:hover { transform: translateY(-1px); background: color-mix(in oklab, var(--surface) 80%, var(--silver) 20%); }
+.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); }
+
+.btn-primary{
+  background: var(--primary); color:#032220;
+  border-color: color-mix(in oklab, var(--primary) 65%, #000 0%);
+}
+.btn-primary:hover { filter: brightness(1.05); }
+
+/* Tamaño md+ */
+@media (min-width: 768px){
+  .btn{ height:2.5rem; padding:0 1rem; font-size:.95rem; }
 }
 
-/* En pantallas medianas, sube apenas para que no quede minúsculo */
-@screen md{
-  .btn{ @apply h-9 px-4 text-sm; }
-}
-
-/* Evita que algo “tape” la barra por stacking context raros */
-:root {
-  --surface: rgba(11,17,22,.92);
-}
-.dark {
-  --surface: rgba(10,9,18,.92);
-}
-
+/* ============================================================================
+  ACCESIBILIDAD (reduce motion)
+============================================================================ */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;
@@ -84,4 +120,40 @@ a:hover{ text-decoration-color: rgba(127, 133, 138, 0.8); }
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+/* === Neutralizar sombras y fondos en botones/chips/cards === */
+
+/* Sombras neutras (sin tinte) */
+:root { --shadow: 0 18px 48px rgba(0,0,0,.10); }
+.dark  { --shadow: 0 18px 48px rgba(0,0,0,.35); }
+
+/* Fondo y borde del botón: blanco/plata puro, sin mezcla */
+.btn{
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+  box-shadow: var(--shadow) !important;
+  color: var(--fg) !important;
+}
+/* Hover sin color: apenas más “sólido” */
+.btn:hover{
+  background: color-mix(in oklab, var(--surface) 96%, #000 4%) !important; /* gris neutro */
+}
+
+/* Si querés el primario SIN degradé ni tinte */
+.btn-primary{
+  background: var(--primary) !important;
+  border-color: color-mix(in oklab, var(--primary) 70%, #000 0%) !important;
+  color:#032220 !important;
+}
+
+/* Chips totalmente neutros */
+.chip{
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+  color: var(--fg) !important;
+}
+
+/* Cards “soft” sin mezcla (por si usaste card-ghost en algún lado) */
+.card-ghost{
+  background: var(--surface) !important;
 }

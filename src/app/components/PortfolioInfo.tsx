@@ -72,28 +72,28 @@ export default function PortfolioInfo() {
                 Cómo hice este portfolio
               </h2>
 
-              <ul className="mt-3 space-y-1 text-white/85 text-sm">
+              <ul className="mt-3 space-y-1 text-sm">
                 <li>
-                  <span className="text-white">Framework:</span> Next.js 15 (App Router)
+                  <span className="text">Framework:</span> Next.js 15 (App Router)
                 </li>
                 <li>
-                  <span className="text-white">UI:</span> React + Tailwind CSS v4
+                  <span className="text">UI:</span> React + Tailwind CSS v4
                 </li>
                 <li>
-                  <span className="text-white">Build CSS:</span> @tailwindcss/postcss + Autoprefixer
+                  <span className="text">Build CSS:</span> @tailwindcss/postcss + Autoprefixer
                 </li>
                 <li>
-                  <span className="text-white">Animaciones:</span> Framer Motion
+                  <span className="text">Animaciones:</span> Framer Motion
                 </li>
                 <li>
-                  <span className="text-white">Accesibilidad:</span> focus-visible, aria-*
+                  <span className="text">Accesibilidad:</span> focus-visible, aria-*
                 </li>
                 <li>
-                  <span className="text-white">Extras:</span> selector de color y tema
+                  <span className="text">Extras:</span> selector de color y tema
                 </li>
               </ul>
 
-              <p className="mt-4 text-white/75 text-sm leading-relaxed">
+              <p className="mt-4 text-sm leading-relaxed">
                 Fue mi primera vez con Next, así que investigué bastante documentación y
                 ejemplos hasta definir esta arquitectura y los estilos.
               </p>
