@@ -77,3 +77,11 @@ a:hover{ text-decoration-color: rgba(127, 133, 138, 0.8); }
   --surface: rgba(10,9,18,.92);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
