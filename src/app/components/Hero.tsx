@@ -31,12 +31,17 @@ import { ANIM } from "../../lib/anim";
                 variants={item}
                 className="mt-6 flex flex-wrap items-center gap-3"
             >
-                {/* Ubicación */}
-                <motion.span variants={item} className="btn">
+                            <motion.a
+                variants={item}
+                href="https://www.google.com/maps/search/?api=1&query=-31.4201%2C-64.1888"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Abrir Córdoba, Argentina en Google Maps"
+                className="btn"
+                >
                 <MapPin className="size-4" />
                 Córdoba, Argentina
-                </motion.span>
-
+                </motion.a>
                 {/* Gmail */}
                 <motion.a
                 variants={item}
