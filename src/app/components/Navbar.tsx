@@ -93,7 +93,7 @@ export default function Navbar() {
           >
             <div
               className="rounded-2xl border border-s backdrop-blur-sm p-2
-                         bg-[color-mix(in_oklab,var(--surface)_86%,transparent)]"
+                        bg-[color-mix(in_oklab,var(--surface)_86%,transparent)]"
             >
               {visibleItems.map((item) => (
                 <Link

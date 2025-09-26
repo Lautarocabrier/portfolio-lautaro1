@@ -8,6 +8,7 @@ import { motion, useInView } from "framer-motion";
 import Reveal from "./components/Reveal";
 import { ANIM } from "../lib/anim";
 
+// ---- DATA ----
 const projects = [
   {
     title: "SIAD",
@@ -42,6 +43,7 @@ const projects = [
 // Delays extra para el contenido interno de cada card (ajustá a gusto)
 const EXTRA_DELAYS = [0.5, 0.5, 0.5, 0.4];
 
+// ---- CARD ----
 function ProjectCard({
   p,
   idx,
@@ -50,7 +52,7 @@ function ProjectCard({
   idx: number;
 }) {
   const ref = useRef<HTMLAnchorElement | null>(null);
-  const inView = useInView(ref, { amount: 0.25, once: true });
+  const inView = useInView(ref, { amount: 0.5, once: true });
   const [hover, setHover] = useState(false);
   const extra = EXTRA_DELAYS[idx % EXTRA_DELAYS.length];
 
@@ -82,8 +84,7 @@ function ProjectCard({
       transition={{ duration: ANIM.d, ease: ANIM.ease }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      /* === SOLO PALETA: card + borde/sombra propios, sin clases blancas === */
-      className="relative flex h-full flex-col justify-between rounded-2xl p-5 transition card shadow-brand hover:-translate-y-0.5"
+      className="relative flex h-full flex-col justify-between rounded-2xl p-5 card shadow-brand transition"
     >
       <motion.div
         variants={innerContainer}
@@ -99,20 +100,20 @@ function ProjectCard({
           )}
         </motion.div>
 
-        <motion.p variants={innerItem} className="mt-3 text-sm leading-relaxed text-muted">
+        <motion.p variants={innerItem} className="mt-3 text-sm leading-relaxed text-[var(--fg)]/85">
           {p.desc}
         </motion.p>
 
         <motion.div variants={innerItem} className="mt-4 flex flex-wrap gap-2">
           {p.tags.map((t) => (
-            <span key={t} className="chip text-xs">
+            <span key={t} className="chip">
               {t}
             </span>
           ))}
         </motion.div>
       </motion.div>
 
-      {/* borde/ring suave usando tu paleta (opcional) */}
+      {/* borde suave acorde a la paleta */}
       <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-[var(--border)]" />
     </motion.a>
   );
@@ -121,7 +122,7 @@ function ProjectCard({
 export default function HomePage() {
   // --- CTA: helpers de animación ---
   const ctaRef = useRef<HTMLDivElement | null>(null);
-  const ctaInView = useInView(ctaRef, { amount: 0.25, once: true });
+  const ctaInView = useInView(ctaRef, { amount: 0.9, once: true });
 
   const ctaInner = {
     hidden: { opacity: 0 },
@@ -166,7 +167,6 @@ export default function HomePage() {
           initial={{ opacity: 0, y: ANIM.y }}
           animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: ANIM.y }}
           transition={{ duration: ANIM.d, ease: ANIM.ease }}
-          /* === SOLO PALETA: card + border propio === */
           className="relative overflow-hidden rounded-2xl p-8 text-center card shadow-brand"
         >
           <motion.div
@@ -178,10 +178,7 @@ export default function HomePage() {
               ¿Colaboramos?
             </motion.h3>
 
-            <motion.p
-              variants={ctaItem}
-              className="mx-auto mt-2 max-w-2xl text-muted"
-            >
+            <motion.p variants={ctaItem} className="mx-auto mt-2 max-w-2xl text-muted">
               Abierto a trainee/pasantía. Puedo sumar valor rápido en UI, performance y QA.
             </motion.p>
 
@@ -191,7 +188,6 @@ export default function HomePage() {
             </motion.div>
           </motion.div>
 
-          {/* ring suave con tu color de borde */}
           <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-[var(--border)]" />
         </motion.div>
       </section>
