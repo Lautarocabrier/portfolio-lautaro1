@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ThemeControl from "./ThemeControl";
 import PortfolioInfo from "./PortfolioInfo";
 
@@ -24,11 +24,33 @@ export default function Navbar() {
 
   const visibleItems = navItems.filter((item) => !isActive(item.href));
 
+  // Bloquear scroll cuando el drawer está abierto
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = open ? "hidden" : original || "";
+    return () => {
+      document.body.style.overflow = original || "";
+    };
+  }, [open]);
+
   return (
     <header id="site-header" className="z-[1000] w-full">
-      <div className="mx-auto max-w-6xl px-4 md:px-6 ">
-        <nav className="flex items-center justify-between py-0">
-          <PortfolioInfo />
+      <div className="mx-auto max-w-6xl px-4 md:px-6">
+        {/* NAVBAR: aparece a los 0.5s */}
+        <motion.nav
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="flex items-center justify-between py-0"
+        >
+          {/* Branding: entra a los 0.6s */}
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <PortfolioInfo />
+          </motion.div>
 
           {/* Desktop */}
           <div className="ml-auto hidden items-center gap-2 md:flex">
@@ -61,7 +83,10 @@ export default function Navbar() {
           </div>
 
           {/* Botón Mobile */}
-          <button
+          <motion.button
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.65 }}
             className="md:hidden inline-flex items-center gap-2 rounded-xl
                        border border-s
                        bg-[color-mix(in_oklab,var(--surface)_86%,transparent)]
@@ -74,55 +99,83 @@ export default function Navbar() {
           >
             Menu
             <span className="sr-only">Abrir/Cerrar</span>
-          </button>
-        </nav>
+          </motion.button>
+        </motion.nav>
       </div>
 
       {/* Drawer Mobile */}
-      {open && (
-        <>
-          {/* Backdrop para cerrar al click afuera */}
-          <button
-            aria-hidden
-            onClick={() => setOpen(false)}
-            className="fixed inset-0 z-40 md:hidden bg-black/30"
-          />
-          <div
-            id="mobile-menu"
-            className="fixed inset-x-0 top-[56px] z-50 mx-auto max-w-6xl px-4 md:px-6 md:hidden"
-          >
-            <div
-              className="rounded-2xl border border-s backdrop-blur-sm p-2
-                        bg-[color-mix(in_oklab,var(--surface)_86%,transparent)]"
-            >
-              {visibleItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className={`block rounded-xl px-3 py-2 text-sm transition
-                    ${
-                      isActive(item.href)
-                        ? "text-[var(--fg)] bg-[color-mix(in_oklab,var(--surface)_85%,var(--silver)_15%)]"
-                        : "text-muted hover:bg-[color-mix(in_oklab,var(--surface)_85%,transparent)] hover:text-[var(--fg)]"
-                    }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.22 }}
+              className="fixed inset-0 z-40 md:hidden bg-black/40 backdrop-blur-sm"
+              onClick={() => setOpen(false)}
+              aria-hidden
+            />
 
-              <div className="mt-3 flex items-center">
-                <button onClick={() => setOpen(false)} className="btn" aria-label="Cerrar">
-                  Cerrar
-                </button>
-                <div className="ml-auto">
-                  <ThemeControl />
+            {/* Panel: SALE DESDE LA DERECHA */}
+            <motion.div
+              key="sheet"
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 24 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              className="fixed right-4 top-[64px] z-50 w-[min(480px,92vw)] md:hidden"
+            >
+              <div className="rounded-2xl p-2 card shadow-brand ring-1 ring-[var(--border)]">
+                <ul className="py-1">
+                  {visibleItems.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className={`flex items-center gap-2 rounded-xl px-3 py-3 text-base transition
+                          ${
+                            isActive(item.href)
+                              ? "text-[var(--fg)] bg-[color-mix(in_oklab,var(--surface)_85%,var(--silver)_15%)]"
+                              : "text-[var(--fg)]/85 hover:bg-[color-mix(in_oklab,var(--surface)_90%,transparent)]"
+                          }`}
+                      >
+                        <span
+                          className={`mr-2 block h-4 w-1.5 rounded-full
+                            ${
+                              isActive(item.href)
+                                ? "bg-[var(--primary)] dark:bg-white]"
+                                : "bg-transparent"
+                            }`}
+                          aria-hidden
+                        />
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-2 flex items-center gap-2">
+                  <button onClick={() => setOpen(false)} className="btn" aria-label="Cerrar">
+                    Cerrar
+                  </button>
+                  <div className="ml-auto">
+                    <ThemeControl />
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </>
-      )}
+
+              {/* Safe area bottom (iOS) */}
+              <div style={{ paddingBottom: "env(safe-area-inset-bottom)" }} />
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
