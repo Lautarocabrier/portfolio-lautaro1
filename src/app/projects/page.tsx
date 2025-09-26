@@ -82,24 +82,20 @@ const projects: Project[] = [
   },
 ];
 
+/* ====== SOLO PALETA (sin tocar concepto) ====== */
 function Chip({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="rounded-full bg-white/5 px-3 py-1 text-xs text-white/85 border border-white/10">
-      {children}
-    </span>
-  );
+  return <span className="chip text-xs">{children}</span>;
 }
 
-// delays extra por card (ajustá a 1, 2, 3 si querés exacto)
-const EXTRA_DELAYS = [0.5, 0.6 , 0.2];
+// delays extra por card
+const EXTRA_DELAYS = [0.5, 0.6, 0.2];
 
 function ProjectCard({ p, index }: { p: Project; index: number }) {
-  const extra = EXTRA_DELAYS[index % EXTRA_DELAYS.length]; // delay base para el contenido
+  const extra = EXTRA_DELAYS[index % EXTRA_DELAYS.length];
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { amount: 0.25, once: true });
   const [hover, setHover] = useState(false);
 
-  // Contenedor del contenido (lo que cae después)
   const innerContainer = {
     hidden: { opacity: 0 },
     show: {
@@ -107,16 +103,13 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
       transition: {
         duration: ANIM.d,
         ease: ANIM.ease,
-        // si hay hover, sin delay; si no, delay extra
         delay: hover ? 0 : extra,
-        // los hijos caen en cascada
         staggerChildren: 0.12,
         delayChildren: hover ? 0 : extra,
       },
     },
   };
 
-  // Cada bloque interno cae desde arriba
   const innerItem = {
     hidden: { opacity: 0, y: 18 },
     show: { opacity: 1, y: 0, transition: { duration: ANIM.d, ease: ANIM.ease } },
@@ -125,35 +118,31 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
   return (
     <motion.article
       ref={ref}
-      variants={item} // ← envoltura entra primero (usa tu stagger externo)
-      className="rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6 mb-8"
+      variants={item}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      /* card de tu paleta: fondo, borde y sombra correctos */
+      className="rounded-2xl p-5 sm:p-6 mb-8 card shadow-brand"
     >
-      {/* Contenido que aparece después, en caída */}
-      <motion.div
-        variants={innerContainer}
-        initial="hidden"
-        animate={inView ? "show" : "hidden"}
-      >
+      <motion.div variants={innerContainer} initial="hidden" animate={inView ? "show" : "hidden"}>
         {/* Encabezado */}
         <motion.div
           variants={innerItem}
           className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between"
         >
           <div>
-            <h2 className="text-2xl font-semibold">
+            <h2 className="text-2xl font-semibold text-[var(--fg)]">
               {p.titulo}
               {p.subtitulo && (
-                <span className="ml-2 text-white/60 font-normal">· {p.subtitulo}</span>
+                <span className="ml-2 font-normal text-muted">· {p.subtitulo}</span>
               )}
             </h2>
           </div>
-          {p.periodo && <p className="text-sm text-white/60">{p.periodo}</p>}
+          {p.periodo && <p className="text-sm text-muted">{p.periodo}</p>}
         </motion.div>
 
         {/* Resumen */}
-        <motion.p variants={innerItem} className="mt-3 text-white/85">
+        <motion.p variants={innerItem} className="mt-3 text-muted">
           {p.resumen}
         </motion.p>
 
@@ -167,10 +156,10 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
         {/* Contenido */}
         <motion.div variants={innerItem} className="mt-6 grid gap-6 md:grid-cols-2">
           <section>
-            <h3 className="mb-2 flex items-center gap-2 font-semibold">
+            <h3 className="mb-2 flex items-center gap-2 font-semibold text-[var(--fg)]">
               <Wrench className="size-4" /> Qué hace
             </h3>
-            <ul className="list-disc pl-5 space-y-1 text-white/85">
+            <ul className="list-disc pl-5 space-y-1 text-muted">
               {p.bullets.map((b, i) => (
                 <li key={i}>{b}</li>
               ))}
@@ -178,10 +167,10 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
           </section>
 
           <section>
-            <h3 className="mb-2 flex items-center gap-2 font-semibold">
+            <h3 className="mb-2 flex items-center gap-2 font-semibold text-[var(--fg)]">
               <Brain className="size-4" /> Rol & Aprendizajes
             </h3>
-            <ul className="list-disc pl-5 space-y-1 text-white/85">
+            <ul className="list-disc pl-5 space-y-1 text-muted">
               {p.aprendizajes.map((a, i) => (
                 <li key={i}>{a}</li>
               ))}
@@ -192,28 +181,20 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
         {/* Acciones */}
         <motion.div variants={innerItem} className="mt-6 flex flex-wrap items-center gap-3">
           {p.repo && (
-            <Link
-              href={p.repo}
-              target="_blank"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm hover:bg-white/10"
-            >
+            <Link href={p.repo} target="_blank" className="btn">
               <Github className="size-4" />
               Repo
               <ExternalLink className="size-3.5 opacity-70" />
             </Link>
           )}
           {p.demo && (
-            <Link
-              href={p.demo}
-              target="_blank"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm hover:bg-white/10"
-            >
+            <Link href={p.demo} target="_blank" className="btn">
               <Globe className="size-4" />
               Demo
               <ExternalLink className="size-3.5 opacity-70" />
             </Link>
           )}
-          <span className="ml-auto inline-flex items-center gap-2 text-xs text-white/60">
+          <span className="ml-auto inline-flex items-center gap-2 text-xs text-muted">
             <FolderGit2 className="size-4" /> ID: {p.id}
           </span>
         </motion.div>
@@ -227,13 +208,12 @@ export default function ProjectsPage() {
     <main className="mx-auto max-w-6xl px-4 md:px-6 pt-13 md:pt-13 pb-24">
       <header className="mb-10">
         <Reveal>
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-center mx-auto">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl text-center mx-auto text-[var(--fg)]">
             Proyectos
           </h1>
         </Reveal>
       </header>
 
-      {/* La card (envoltura) entra como siempre; dentro, el contenido cae con delay */}
       <Stagger>
         {projects.map((p, i) => (
           <ProjectCard key={p.id} p={p} index={i} />

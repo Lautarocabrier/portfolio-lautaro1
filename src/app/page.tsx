@@ -82,7 +82,8 @@ function ProjectCard({
       transition={{ duration: ANIM.d, ease: ANIM.ease }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="relative flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:shadow-[0_20px_50px_rgba(255,255,255,.15)]"
+      /* === SOLO PALETA: card + borde/sombra propios, sin clases blancas === */
+      className="relative flex h-full flex-col justify-between rounded-2xl p-5 transition card shadow-brand hover:-translate-y-0.5"
     >
       <motion.div
         variants={innerContainer}
@@ -90,57 +91,57 @@ function ProjectCard({
         animate={inView ? "show" : "hidden"}
       >
         <motion.div variants={innerItem}>
-          <h3 className="text-lg font-semibold tracking-tight">{p.title}</h3>
+          <h3 className="text-lg font-semibold tracking-tight text-[var(--fg)]">
+            {p.title}
+          </h3>
           {p.subtitle && (
-            <p className="mt-1 text-sm text-white/70">{p.subtitle}</p>
+            <p className="mt-1 text-sm text-muted">{p.subtitle}</p>
           )}
         </motion.div>
 
-        <motion.p variants={innerItem} className="mt-3 text-sm leading-relaxed text-white/80">
+        <motion.p variants={innerItem} className="mt-3 text-sm leading-relaxed text-muted">
           {p.desc}
         </motion.p>
 
         <motion.div variants={innerItem} className="mt-4 flex flex-wrap gap-2">
           {p.tags.map((t) => (
-            <span
-              key={t}
-              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/90"
-            >
+            <span key={t} className="chip text-xs">
               {t}
             </span>
           ))}
         </motion.div>
       </motion.div>
 
-      {/* ruido suave */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/10" />
+      {/* borde/ring suave usando tu paleta (opcional) */}
+      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-[var(--border)]" />
     </motion.a>
   );
 }
 
 export default function HomePage() {
   // --- CTA: helpers de animación ---
-const ctaRef = useRef<HTMLDivElement | null>(null);
-const ctaInView = useInView(ctaRef, { amount: 0.25, once: true });
+  const ctaRef = useRef<HTMLDivElement | null>(null);
+  const ctaInView = useInView(ctaRef, { amount: 0.25, once: true });
 
-const ctaInner = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      duration: ANIM.d,
-      ease: ANIM.ease,
-      delay: 0.4,           // delay antes de que empiece
-      staggerChildren: 0.12,
-      delayChildren: 0.4,
+  const ctaInner = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        duration: ANIM.d,
+        ease: ANIM.ease,
+        delay: 0.4,
+        staggerChildren: 0.12,
+        delayChildren: 0.4,
+      },
     },
-  },
-} as const;
+  } as const;
 
-const ctaItem = {
-  hidden: { opacity: 0, y: 16 },
-  show:   { opacity: 1, y: 0, transition: { duration: ANIM.d, ease: ANIM.ease } },
-};
+  const ctaItem = {
+    hidden: { opacity: 0, y: 16 },
+    show: { opacity: 1, y: 0, transition: { duration: ANIM.d, ease: ANIM.ease } },
+  };
+
   return (
     <main>
       <Hero />
@@ -148,7 +149,7 @@ const ctaItem = {
       {/* Proyectos */}
       <section className="mx-auto max-w-6xl px-4 md:px-6 pb-6">
         <Reveal>
-          <h2 className="mb-6 text-xl font-semibold text-white/90">Proyectos</h2>
+          <h2 className="mb-6 text-xl font-semibold text-[var(--fg)]">Proyectos</h2>
         </Reveal>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -158,35 +159,42 @@ const ctaItem = {
         </div>
       </section>
 
-   {/* CTA */}
-<section className="mx-auto max-w-6xl px-4 md:px-6 py-6">
-  <motion.div
-    ref={ctaRef}
-    initial={{ opacity: 0, y: ANIM.y }}
-    animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: ANIM.y }}
-    transition={{ duration: ANIM.d, ease: ANIM.ease }}
-    className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 text-center"
-  >
-    <motion.div variants={ctaInner} initial="hidden" animate={ctaInView ? "show" : "hidden"}>
-      <motion.h3 variants={ctaItem} className="text-2xl font-semibold">
-        ¿Colaboramos?
-      </motion.h3>
+      {/* CTA */}
+      <section className="mx-auto max-w-6xl px-4 md:px-6 py-6">
+        <motion.div
+          ref={ctaRef}
+          initial={{ opacity: 0, y: ANIM.y }}
+          animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: ANIM.y }}
+          transition={{ duration: ANIM.d, ease: ANIM.ease }}
+          /* === SOLO PALETA: card + border propio === */
+          className="relative overflow-hidden rounded-2xl p-8 text-center card shadow-brand"
+        >
+          <motion.div
+            variants={ctaInner}
+            initial="hidden"
+            animate={ctaInView ? "show" : "hidden"}
+          >
+            <motion.h3 variants={ctaItem} className="text-2xl font-semibold text-[var(--fg)]">
+              ¿Colaboramos?
+            </motion.h3>
 
-      <motion.p variants={ctaItem} className="mx-auto mt-2 max-w-2xl text-white/80">
-        Abierto a trainee/pasantía. Puedo sumar valor rápido en UI, performance y QA.
-      </motion.p>
+            <motion.p
+              variants={ctaItem}
+              className="mx-auto mt-2 max-w-2xl text-muted"
+            >
+              Abierto a trainee/pasantía. Puedo sumar valor rápido en UI, performance y QA.
+            </motion.p>
 
-      <motion.div variants={ctaItem} className="flex flex-wrap justify-center gap-3 mt-3">
-        <a href="/contact" className="btn">Contactar</a>
-        <a href="/experience" className="btn">Experiencia</a>
-      </motion.div>
-    </motion.div>
+            <motion.div variants={ctaItem} className="flex flex-wrap justify-center gap-3 mt-3">
+              <a href="/contact" className="btn">Contactar</a>
+              <a href="/experience" className="btn">Experiencia</a>
+            </motion.div>
+          </motion.div>
 
-    {/* ruido suave */}
-    <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/10" />
-  </motion.div>
-</section>
-
+          {/* ring suave con tu color de borde */}
+          <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-[var(--border)]" />
+        </motion.div>
+      </section>
     </main>
   );
 }

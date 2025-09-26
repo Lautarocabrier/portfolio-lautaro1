@@ -100,13 +100,13 @@
 
         <section className="mx-auto max-w-5xl px-6 py-14 md:py-16">
             {/* contenedor con recuadro suave */}
-            <div className="rounded-3xl border-s bg-[var(--surface-2)]/85 p-6 md:p-10 shadow-brand ring-1 ring-[var(--primary)]/10">
-            {/* Título */}
-            <Reveal>
-                <h1 className="text-center text-4xl md:text-6xl font-extrabold tracking-tight text-[var(--primary)]">
-                Sobre mí
-                </h1>
-            </Reveal>
+                <div className="rounded-3xl border-s bg-[var(--surface-2)]/85 p-6 md:p-10 shadow-brand ring-1 ring-[var(--primary)]/10">
+        {/* Título */}
+        <Reveal>
+            <h1 className="text-center text-4xl md:text-6xl font-extrabold tracking-tight">
+            Sobre mí
+            </h1>
+        </Reveal>
 
             {/* Descripción */}
             <Reveal delay={0.08}>

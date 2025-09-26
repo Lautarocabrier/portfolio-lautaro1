@@ -1,8 +1,8 @@
-    "use client";
+"use client";
 
-    import { motion, type Variants, useReducedMotion } from "framer-motion";
+import { motion, type Variants, useReducedMotion } from "framer-motion";
 
-    const experiences = [
+const experiences = [
     {
         year: "2025 – Actualidad",
         title: "Proyecto Final de Carrera – Instituto Cura Brochero",
@@ -29,6 +29,7 @@
     export default function ExperiencePage() {
     const reduce = useReducedMotion();
 
+    // variantes (igual que tenías)
     const listVariants: Variants = {
         hidden: {},
         show: {
@@ -49,82 +50,62 @@
     };
 
     return (
-        <main className="mx-auto max-w-5xl px-6 md:px-8 pt-10 md:pt-12 pb-16">
-        {/* Título */}
-        <motion.h1
-            initial={{ opacity: 0, y: reduce ? 0 : -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduce ? 0 : 0.5 }}
-            className="text-4xl md:text-5xl font-extrabold text-center mb-8"
-            style={{ color: "var(--primary)" }}
-        >
-            Experiencia
-        </motion.h1>
+        <main className="relative overflow-hidden">
+        {/* blobs sutiles (opcionales) */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+            <div className="absolute -top-20 left-1/4 h-72 w-72 rounded-full grad-brand blur-3xl opacity-25 animate-blob" />
+            <div className="absolute top-32 right-1/5 h-72 w-72 rounded-full grad-brand blur-3xl opacity-15 animate-blob [animation-delay:4s]" />
+            <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full grad-brand blur-3xl opacity-15 animate-blob [animation-delay:8s]" />
+        </div>
 
-        {/* Contenedor con recuadro acorde a la paleta */}
-        <section className="rounded-3xl border-s bg-[color:var(--surface-2)]/85 shadow-brand ring-1 ring-[color:var(--primary)]/10 p-5 md:p-8">
-            {/* Timeline */}
-            <motion.div
-            variants={listVariants}
-            initial="hidden"
-            animate="show"
-            className="relative mx-auto w-full max-w-3xl pl-10"
+        <section className="mx-auto max-w-5xl px-6 py-14 md:py-16">
+            {/* contenedor alineado a About/Contact (sin cambiar el estilo, solo colores) */}
+            <div className="rounded-3xl border-s bg-[var(--surface-2)]/85 p-6 md:p-10 shadow-brand ring-1 ring-[var(--border)]">
+            <motion.h1
+                initial={{ opacity: 0, y: reduce ? 0 : -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: reduce ? 0 : 0.5 }}
+                className="text-center text-4xl md:text-6xl font-extrabold tracking-tight"
             >
-            {/* Línea vertical (usa --border) */}
-            <div
-                aria-hidden
-                className="pointer-events-none absolute left-3 top-0 bottom-0 w-[2px] rounded-full"
-                style={{ background: "var(--border)" }}
-            />
+                Experiencia
+            </motion.h1>
 
-            {experiences.map((exp, idx) => (
-                <motion.article
-                key={idx}
-                variants={itemVariants}
-                className="relative mb-8 last:mb-0"
-                >
-                {/* Punto del timeline */}
-                <span
-                    aria-hidden
-                    className="absolute -left-[6px] top-1 h-3.5 w-3.5 rounded-full"
-                    style={{
-                    background: "var(--surface)",
-                    border: "2px solid var(--primary)",
-                    boxShadow: "0 0 0 3px color-mix(in oklab, var(--primary) 18%, transparent)",
-                    }}
+            {/* timeline */}
+            <motion.div
+                variants={listVariants}
+                initial="hidden"
+                animate="show"
+                className="relative mx-auto w-full max-w-3xl pl-10 mt-8 md:mt-10"
+            >
+                {/* barra izquierda: VERDE en claro, BLANCA en oscuro */}
+                <div
+                aria-hidden
+                className="
+                    pointer-events-none absolute left-3 top-0 bottom-0 w-[3px]
+                    bg-[var(--primary)] dark:bg-white/70 rounded-full
+                "
                 />
 
-                {/* Rol */}
-                <h3
-                    className="text-xl md:text-2xl font-bold"
-                    style={{ color: "var(--fg)" }}
+                {experiences.map((exp, idx) => (
+                <motion.div
+                    key={idx}
+                    variants={itemVariants}
+                    className="relative mb-10 last:mb-0"
                 >
+                    <h3 className="text-xl md:text-2xl font-bold text-[var(--fg)]">
                     {exp.role}
-                </h3>
-
-                {/* Año */}
-                <p
-                    className="text-sm md:text-base font-semibold"
-                    style={{ color: "var(--primary)" }}
-                >
+                    </h3>
+                    <p className="text-sm md:text-base text-[var(--primary)] font-semibold">
                     {exp.year}
-                </p>
-
-                {/* Título */}
-                <h4
-                    className="text-lg md:text-xl font-medium"
-                    style={{ color: "var(--accent)" }}
-                >
+                    </p>
+                    <h4 className="text-base md:text-lg font-medium text-[var(--accent-2)]">
                     {exp.title}
-                </h4>
-
-                {/* Descripción */}
-                <p className="mt-2" style={{ color: "var(--muted)" }}>
-                    {exp.description}
-                </p>
-                </motion.article>
-            ))}
+                    </h4>
+                    <p className="mt-2 text-[var(--muted)]">{exp.description}</p>
+                </motion.div>
+                ))}
             </motion.div>
+            </div>
         </section>
         </main>
     );

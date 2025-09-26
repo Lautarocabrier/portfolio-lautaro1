@@ -1,55 +1,58 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   PALETA (claro/oscuro) — verdes/teal sin celestes
+============================================================================ */
 :root {
-  /* Base claro (Sol refinado) */
-  --bg:        #e9f1f1;
-  --fg:        #0e2626;
-  --muted:     #3a5d5c;
+  /* Base claro */
+  --bg:        #F7FBFD;   /* fondo casi blanco con tinte frío */
+  --fg:        #0E2626;   /* texto principal petróleo */
+  --muted:     #3A5D5C;   /* texto secundario verdoso */
 
-  /* Superficies y bordes (plata limpio) */
-  --surface:   #0f7a70;
-  --surface-2: #f2f7fa;
-  --border:    #d6e5ea;
+  /* Superficies y bordes */
+  --surface:   #FFFFFF;   /* tarjetas/botones */
+  --surface-2: #F1F7F5;   /* secciones suaves */
+  --border:    #CFE4DF;   /* borde sutil verdoso */
 
-  /* Marca / acentos (verde/teal + celestes) */
-  --primary:     #0f7a70;
-  --primary-400: #2dd4bf;
-  --accent:      #7dd3fc;
-  --accent-2:    #22d3ee;
-  --ring:        #21cfe7;
+  /* Marca / acentos (verde/teal) */
+  --primary:       #0F7A70; /* teal profundo */
+  --primary-400:   #34D399; /* emerald 400 */
+  --accent:        #22C55E; /* emerald 500 */
+  --accent-2:      #10B981; /* emerald 500/teal */
+  --ring:          #10B981; /* focus */
 
-  /* Plata */
-  --silver:     #e9eef3;
-  --silver-ink: #2b3540;
+  /* Plata (chips/ghost) */
+  --silver:     #E9EEF3;
+  --silver-ink: #2B3540;
 
-  /* Sombra neutra para claro */
-  --shadow:     0 18px 48px rgba(16,115,105,.10);
+  /* Sombras NEUTRAS (sin tinte) */
+  --shadow:     0 18px 48px rgba(0,0,0,.10);
 }
 
 .dark {
-  /* Base oscuro (Noct) */
-  --bg:        #071f1e;
-  --fg:        #e9fbfb;
-  --muted:     #b7d0cf;
+  /* Base oscuro */
+  --bg:        #071F1E;
+  --fg:        #E9FBFB;
+  --muted:     #B7D0CF;
 
   /* Superficies y bordes */
-  --surface:   #0e2a29;
-  --surface-2: #0b2322;
+  --surface:   #0E2A29;
+  --surface-2: #0B2322;
   --border:    #123433;
 
-  /* Marca / acentos */
-  --primary:   #2dd4bf;
-  --primary-400: #5eead4;
-  --accent:    #7dd3fc;
-  --accent-2:  #22d3ee;
-  --ring:      #22d3ee;
+  /* Marca / acentos (verde/teal) */
+  --primary:       #34D399; /* más brillante para contraste */
+  --primary-400:   #10B981;
+  --accent:        #34D399;
+  --accent-2:      #2DD4BF; /* mint/teal suave */
+  --ring:          #10B981;
 
-  /* Plata para dark */
-  --silver:    #aeb6bf;
-  --silver-ink:#0b141c;
+  /* Plata */
+  --silver:    #AEB6BF;
+  --silver-ink:#0B141C;
 
-  /* Sombras */
-  --shadow:    0 20px 50px rgba(34,211,238,.14);
+  /* Sombra en dark (sutil y neutra) */
+  --shadow:    0 18px 48px rgba(0,0,0,.35);
 }
 
 /* ============================================================================
@@ -68,7 +71,7 @@ a{ text-underline-offset:4px; transition: color .2s ease, text-decoration-color 
 a:hover{ text-decoration-color: color-mix(in oklab, var(--fg) 40%, transparent); }
 
 /* ============================================================================
-  UTILIDADES DE ESTILO
+  UTILIDADES
 ============================================================================ */
 .card       { background: var(--surface); border: 1px solid var(--border); }
 .card-ghost { background: color-mix(in oklab, var(--surface) 85%, transparent); }
@@ -77,33 +80,51 @@ a:hover{ text-decoration-color: color-mix(in oklab, var(--fg) 40%, transparent);
 .text-muted { color: var(--muted) !important; }
 .shadow-brand { box-shadow: var(--shadow); }
 
-/* Texto en gradiente (para títulos). Si no lo querés, borra este bloque también */
-.grad-text {
+/* Texto en gradiente (para títulos). Si no lo querés, borrá este bloque */
+.grad-text{
   background: linear-gradient(90deg, var(--accent) 0%, #ffffff 45%, var(--primary-400) 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 
+/* Chips neutros (combinan con la paleta) */
+.chip{
+  display:inline-flex; align-items:center; gap:.375rem;
+  padding:.35rem .65rem; border-radius:999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-size:.75rem; line-height:1; font-weight:600;
+  box-shadow: var(--shadow);
+}
+
 /* ============================================================================
-  BOTONES
+  BOTONES (unificados y sin tinte azul)
 ============================================================================ */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
   height:2.25rem; padding:0 .9rem; border-radius:.9rem;
-  border:1px solid color-mix(in oklab, var(--border) 85%, transparent);
-  background: color-mix(in oklab, var(--surface) 88%, var(--silver) 12%);
-  color: color-mix(in oklab, var(--fg) 92%, var(--silver-ink) 8%);
+  border:1px solid var(--border);
+  background: var(--surface);
+  color: var(--fg);
   font-size:.875rem; font-weight:600; line-height:1;
   transition: transform .15s ease, background .2s ease, border-color .2s ease;
   box-shadow: var(--shadow);
 }
-.btn:hover { transform: translateY(-1px); background: color-mix(in oklab, var(--surface) 80%, var(--silver) 20%); }
-.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); }
-
-.btn-primary{
-  background: var(--primary); color:#032220;
-  border-color: color-mix(in oklab, var(--primary) 65%, #000 0%);
+.btn:hover{
+  transform: translateY(-1px);
+  background: color-mix(in oklab, var(--surface) 96%, #000 4%); /* gris neutro sutil */
 }
-.btn-primary:hover { filter: brightness(1.05); }
+.btn:focus-visible{
+  outline: none; box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* Primario verde sólido */
+.btn-primary{
+  background: var(--primary);
+  border-color: color-mix(in oklab, var(--primary) 70%, #000 0%);
+  color:#032220;
+}
+.btn-primary:hover{ filter: brightness(1.05); }
 
 /* Tamaño md+ */
 @media (min-width: 768px){
@@ -121,39 +142,19 @@ a:hover{ text-decoration-color: color-mix(in oklab, var(--fg) 40%, transparent);
     scroll-behavior: auto !important;
   }
 }
-/* === Neutralizar sombras y fondos en botones/chips/cards === */
-
-/* Sombras neutras (sin tinte) */
-:root { --shadow: 0 18px 48px rgba(0,0,0,.10); }
-.dark  { --shadow: 0 18px 48px rgba(0,0,0,.35); }
-
-/* Fondo y borde del botón: blanco/plata puro, sin mezcla */
-.btn{
-  background: var(--surface) !important;
+/* ====== KILL TINTES BLANCOS DE TAILWIND (parche global) ====== */
+/* Escapamos la barra en los selectores Tailwind: .bg-white\/5, etc. */
+:root :where(.bg-white\/5, .bg-white\/10, .bg-white\/15,
+            .border-white\/5, .border-white\/10, .border-white\/20){
+  background-color: var(--surface) !important;
   border-color: var(--border) !important;
+  color: var(--fg) !important;
   box-shadow: var(--shadow) !important;
-  color: var(--fg) !important;
-}
-/* Hover sin color: apenas más “sólido” */
-.btn:hover{
-  background: color-mix(in oklab, var(--surface) 96%, #000 4%) !important; /* gris neutro */
 }
 
-/* Si querés el primario SIN degradé ni tinte */
-.btn-primary{
-  background: var(--primary) !important;
-  border-color: color-mix(in oklab, var(--primary) 70%, #000 0%) !important;
-  color:#032220 !important;
-}
-
-/* Chips totalmente neutros */
-.chip{
-  background: var(--surface) !important;
+/* En dark, también obligamos a usar nuestra paleta */
+.dark :where(.bg-white\/5, .bg-white\/10, .bg-white\/15,
+            .border-white\/5, .border-white\/10, .border-white\/20){
+  background-color: var(--surface) !important;
   border-color: var(--border) !important;
-  color: var(--fg) !important;
-}
-
-/* Cards “soft” sin mezcla (por si usaste card-ghost en algún lado) */
-.card-ghost{
-  background: var(--surface) !important;
 }
