@@ -88,11 +88,11 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.65 }}
             className="md:hidden inline-flex items-center gap-2 rounded-xl
-                       border border-s
-                       bg-[color-mix(in_oklab,var(--surface)_86%,transparent)]
-                       px-3 py-2 text-sm text-[var(--fg)]
-                       transition hover:bg-[color-mix(in_oklab,var(--surface)_78%,transparent)]
-                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                        border border-s
+                        bg-[color-mix(in_oklab,var(--surface)_86%,transparent)]
+                        px-3 py-2 text-sm text-[var(--fg)]
+                        transition hover:bg-[color-mix(in_oklab,var(--surface)_78%,transparent)]
+                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
             aria-controls="mobile-menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}

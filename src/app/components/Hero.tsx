@@ -40,7 +40,8 @@ export default function Hero() {
             className="mt-6"
             >
             <Stagger>
-                <motion.div variants={item} className="flex flex-wrap items-center gap-3">
+                <motion.div variants={item} className="flex flex-wrap items-center gap-2 md:gap-3"
+>
                 <motion.a
                     variants={item}
                     href="https://www.google.com/maps/search/?api=1&query=-31.4201%2C-64.1888"
@@ -49,7 +50,7 @@ export default function Hero() {
                     aria-label="Abrir Córdoba, Argentina en Google Maps"
                     className="btn"
                 >
-                    <MapPin className="size-4" />
+                    <MapPin className="size-" />
                     Córdoba, Argentina
                 </motion.a>
 
@@ -95,7 +96,8 @@ export default function Hero() {
             className="mt-8"
             >
             <Stagger>
-                <motion.div variants={item} className="flex flex-wrap items-center gap-3">
+                <motion.div variants={item} className="flex flex-wrap items-center gap-2 md:gap-3"
+>
                 <motion.div variants={item}>
                     <Link href="/about" className="btn">
                     Sobre mí
