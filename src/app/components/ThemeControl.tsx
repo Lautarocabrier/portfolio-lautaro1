@@ -21,6 +21,7 @@ export default function ThemeControl() {
   // botón cuadrado sin etiqueta ni punto
   return (
 <button
+  id="theme-toggle"
   type="button"
   onClick={toggle}
   aria-label="Cambiar tema"
@@ -30,6 +31,7 @@ export default function ThemeControl() {
               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
   title="Cambiar tema"
 >
+
       <span className="text-lg">{dark ? "☾" : "☼"}</span>
     </button>
   );
