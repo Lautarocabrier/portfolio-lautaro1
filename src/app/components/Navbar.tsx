@@ -71,7 +71,7 @@ export default function Navbar() {
                       <motion.span
                         layoutId="nav-underline"
                         className="absolute inset-x-2 -bottom-1 h-[2px] rounded-sm
-                                   bg-[color-mix(in_oklab,var(--accent-2)_70%,var(--primary)_30%)]"
+                                  bg-[color-mix(in_oklab,var(--accent-2)_70%,var(--primary)_30%)]"
                       />
                     )}
                   </Link>
@@ -126,7 +126,8 @@ export default function Navbar() {
               id="mobile-menu"
               role="dialog"
               aria-modal="true"
-              className="fixed right-4 top-[64px] z-50 w-[min(480px,92vw)] md:hidden text-center"
+              className="fixed inset-x-0 top-[64px] z-50 w-[min(480px,92vw)] md:hidden text-center mx-auto"
+
             >
               <div className="rounded-2xl p-2 card shadow-brand ring-1 ring-[var(--border)]">
                 <ul className="py-1">

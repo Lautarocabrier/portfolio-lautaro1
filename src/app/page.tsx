@@ -174,7 +174,7 @@ export default function HomePage() {
             </motion.h3>
 
             <motion.p variants={ctaItem} className="mx-auto mt-2 max-w-2xl text-muted">
-              Abierto a trainee/pasantía. Puedo sumar valor rápido en UI, performance y QA.
+              Abierto a Frontend & QA • Interfaces claras, rendimiento real y calidad medible.
             </motion.p>
 
             <motion.div variants={ctaItem} className="flex flex-wrap justify-center gap-3 mt-3">

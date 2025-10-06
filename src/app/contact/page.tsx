@@ -122,22 +122,21 @@ export default function ContactPage() {
               tabIndex={-1}
               autoComplete="off"
             />
-
-            {/* Nombre */}
-            <label className="block text-sm font-medium text-[var(--fg)]">
-              Nombre
-              <input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                required
-                placeholder="Tu nombre"
-                className="mt-1 w-full rounded-xl border-s bg-[var(--surface)] px-3 py-2
-                           text-[var(--fg)] placeholder:text-muted/70 outline-none transition-colors
-                           focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]"
-              />
-            </label>
+          {/* Nombre */}
+          <label className="block text-sm font-medium text-[var(--fg)]">
+            Nombre
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              required
+              placeholder="Tu nombre"
+              className="mt-1 w-full rounded-xl bg-[var(--surface)] px-3 py-2
+                          text-[var(--fg)] placeholder:text-muted/70 outline-none transition-colors
+                          border border-s focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]"
+            />
+          </label>
 
             {/* Email + Asunto */}
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -173,9 +172,9 @@ export default function ContactPage() {
                   value={form.subject}
                   onChange={handleChange}
                   placeholder="Consulta / Propuesta / Feedback"
-                  className="mt-1 w-full rounded-xl border-s bg-[var(--surface)] px-3 py-2
-                             text-[var(--fg)] placeholder:text-muted/70 outline-none transition-colors
-                             focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]"
+    className="mt-1 w-full rounded-xl bg-[var(--surface)] px-3 py-2
+                text-[var(--fg)] placeholder:text-muted/70 outline-none transition-colors
+                border border-s focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]"
                 />
               </label>
             </div>
