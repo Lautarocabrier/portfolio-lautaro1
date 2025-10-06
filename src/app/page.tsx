@@ -11,33 +11,28 @@ import { ANIM } from "../lib/anim";
 // ---- DATA ----
 const projects = [
   {
-    title: "SIAD",
-    desc:
-      "Sistema académico con roles múltiples, autenticación segura y avisos segmentados para mejorar la gestión educativa",
-    href: "/projects#siade",
-    tags: ["Angular", "nestJS"],
-  },
+  title: "SIAD",
+  subtitle: "Sistema académico",
+  desc: "Sistema académico con roles múltiples, autenticación segura y avisos segmentados para una gestión educativa moderna.",
+  href: "/projects#siade",
+  tags: ["Angular", "PostgreSQL", "NestJS",]
+},
   {
-    title: "AI Trader MVP",
-    subtitle: "Python + Streamlit",
-    desc: "SMA/RSI, backtests vectorizados y panel en vivo.",
-    href: "/projects#ai-trader",
-    tags: ["Python", "Streamlit", "yfinance"],
-  },
-  {
-    title: "Portfolio",
-    subtitle: "Next.js + TailwindCSS",
-    desc: "Dark mode, animaciones y optimización para SEO y performance.",
-    href: "/projects#portfolio",
-    tags: ["Next.js", "TailwindCSS", "Framer Motion"],
-  },
-  {
-    title: "Pizza Happ",
-    subtitle: "Angular",
-    desc: "Carrito, validaciones y flujo de pedido optimizado para mobile.",
-    href: "/projects#pizza",
-    tags: ["Angular", "RxJS", "Forms"],
-  },
+  title: "AI Trader MVP",
+  subtitle: "Backtests EOD con SMA/RSI",
+  desc: "Panel en Streamlit para probar señales y ver resultados en vivo.",
+  href: "/projects#ai-trader-mvp",
+  tags: ["Python", "Streamlit", "yfinance"]
+}
+,
+
+{
+  title: "Obras · Gestor",
+  subtitle: "Control de materiales y herramientas",
+  desc: "Stock por obra, retiros/devoluciones y trazabilidad con roles.",
+  href: "/projects#obras-app",
+  tags: ["NestJS", "Angular", "PostgreSQL", "Docker"]
+},
 ];
 
 // Delays extra para el contenido interno de cada card (ajustá a gusto)

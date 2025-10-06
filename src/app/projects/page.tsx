@@ -22,64 +22,85 @@ type Project = {
 };
 
 const projects: Project[] = [
+{
+  id: "siad",
+  titulo: "SIAD",
+  subtitulo: "Sistema académico integral",
+  periodo: "2023 · Proyecto académico / side project",
+  resumen:
+    "Plataforma web de gestión académica desarrollada con Angular + PrimeNG, NestJS y PostgreSQL. Permite administrar materias, usuarios, exámenes finales y avisos segmentados según el rol del usuario. Se realizaron pruebas funcionales y de interfaz durante el desarrollo para garantizar la calidad.",
+  stack: ["Angular", "PrimeNG", "NestJS", "PostgreSQL", "JWT", "RxJS", "Docker", "TypeScript", "Testing"],
+  bullets: [
+    "Desarrollo del frontend en Angular con componentes standalone y arquitectura modular.",
+    "Implementación de PrimeNG y Tailwind para una UI moderna, accesible y responsive.",
+    "Gestión de roles (alumno, docente, preceptor, secretaría) y autenticación con JWT.",
+    "Pruebas funcionales y de flujo (QA manual y validaciones de interfaz) durante el desarrollo.",
+    "Creación del panel de bienvenida con KPIs, avisos segmentados y accesos rápidos."
+  ],
+  aprendizajes: [
+    "Optimización del flujo de desarrollo mediante testing continuo durante la implementación.",
+    "Uso avanzado de Angular Signals y comunicación entre componentes con RxJS.",
+    "Integración segura entre frontend (Angular) y backend (NestJS + PostgreSQL).",
+    "Buenas prácticas de QA y revisión visual de componentes con PrimeNG."
+  ],
+  repo: "https://github.com/tu-usuario/siade"
+},
+
   {
-    id: "siade",
-    titulo: "SIADE",
-    subtitulo: "Sistema académico",
-    periodo: "2023 · side project",
-    resumen:
-      "Plataforma para gestión académica con roles (alumno/docente/admin), autenticación y avisos segmentados.",
-    stack: ["Angular", "PrimeNG", "PostgreSQL", "JWT"],
-    bullets: [
-      "Autenticación con JWT y guardas de ruta.",
-      "Módulos por rol: panel de alumno, docente y administrador.",
-      "Notificaciones y avisos segmentados por curso/carrera.",
-    ],
-    aprendizajes: [
-      "Arquitectura por módulos y lazy-loading en Angular.",
-      "Patrón de comunicación con RxJS entre componentes.",
-    ],
-    repo: "https://github.com/tu-usuario/siade",
-  },
+  id: "obras-app",
+  titulo: "Obras · Panel de gestión de materiales",
+  subtitulo: "Trazabilidad, devoluciones y stock en tiempo real",
+  periodo: "2025–desarollo · Proyecto freelance con colaboradores",
+  resumen:
+    "Interfaz web para controlar materiales y herramientas en obras. Permite visualizar stock, registrar retiros y devoluciones, y gestionar roles (obrero, capataz, arquitecto) desde un panel centralizado.",
+  stack: ["Angular", "PrimeNG", "TypeScript", "TailwindCSS"],
+
+  bullets: [
+    "Diseño y desarrollo del panel de obrero, arquitecto y capataz.",
+    "Componentes dinámicos con filtros por categorías, ubicaciones y buscadores en tiempo real.",
+    "Integración visual con PrimeNG (DataTable, Dialog, Toast, Dropdown).",
+    "Estilo responsive y coherente con la identidad de la app (tema oscuro + acentos amarillos).",
+    "Validación de formularios y manejo de estados con señales reactivas."
+  ],
+
+  aprendizajes: [
+    "Optimización de vistas con componentes standalone y servicios compartidos.",
+    "Uso avanzado de PrimeNG para UI profesional en entornos CRUD.",
+    "Refinamiento de UX: jerarquía visual, espaciado y consistencia de colores.",
+    "Comunicación efectiva entre front y backend (simulación con mocks y endpoints)."
+  ],
+
+  repo: "https://github.com/tu-usuario/obras-frontend",
+},
+
+
   {
-    id: "pizza-happ",
-    titulo: "Pizza Happ",
-    subtitulo: "Pedidos y carrito",
-    periodo: "2022 · práctica",
-    resumen:
-      "Carrito, validaciones y flujo de pedido optimizado para mobile. Enfoque en UX (fricción mínima al pagar).",
-    stack: ["Angular", "RxJS", "Forms"],
-    bullets: [
-      "Checkout con validaciones reactivas.",
-      "Persistencia ligera del carrito en LocalStorage.",
-      "Diseño mobile-first con componentes reutilizables.",
-    ],
-    aprendizajes: [
-      "Manejo de estado simple con RxJS Subjects.",
-      "Accesibilidad: foco visible y navegación por teclado.",
-    ],
-    repo: "https://github.com/tu-usuario/pizza-happ",
-  },
-  {
-    id: "ai-trader-mvp",
-    titulo: "AI Trader MVP",
-    subtitulo: "Indicadores y backtests",
-    periodo: "2024 · MVP personal",
-    resumen:
-      "Panel en Streamlit para probar estrategias (SMA/RSI), graficar y correr backtests vectorizados con datos de yfinance.",
-    stack: ["Python", "Streamlit", "pandas", "yfinance"],
-    bullets: [
-      "Cálculo vectorizado de indicadores (SMA/EMA/RSI).",
-      "Backtests rápidos con métricas de rendimiento.",
-      "UI en Streamlit con configuración de parámetros.",
-    ],
-    aprendizajes: [
-      "Vectorización con NumPy/Pandas vs. bucles.",
-      "Separación de lógica (core) y UI (Streamlit).",
-    ],
-    repo: "https://github.com/tu-usuario/ai-trader-mvp",
-    demo: "https://tu-demo.vercel.app",
-  },
+  id: "ai-trader-mvp",
+  titulo: "AI Trader MVP",
+  subtitulo: "Indicadores y backtests",
+  periodo: "2024 · MVP personal",
+  resumen:
+    "Panel en Streamlit para diseñar y evaluar estrategias EOD con señales explicables (SMA/RSI). Descarga datos vía yfinance, corre backtests vectorizados (T+1) y muestra métricas como CAGR, Máx. Drawdown y Sharpe.",
+  stack: ["Python", "Streamlit", "pandas", "numpy", "yfinance", "plotly"],
+
+  // Qué hace (features)
+  bullets: [
+    "Cálculo vectorizado de indicadores (SMA/EMA/RSI).",
+    "Backtests rápidos con ejecución T+1 y curva de equity.",
+    "Métricas de rendimiento: Total Return, CAGR, Máx. Drawdown, Sharpe.",
+    "UI en Streamlit con parámetros ajustables y gráficos interactivos (Plotly)."
+  ],
+
+  // Rol y aprendizajes (opcional – se muestra en una columna aparte)
+  aprendizajes: [
+    "Vectorización con NumPy/Pandas vs. bucles.",
+    "Separación de capas: lógica (core) y UI (Streamlit).",
+    "Diseño de UI responsiva y i18n (EN/ES)."
+  ],
+  repo: "https://github.com/Lautarocabrier/TRADER-MVP.git",
+  demo: "https://trader-mvp-production.up.railway.app/",
+}
+
 ];
 
 /* ====== SOLO PALETA (sin tocar concepto) ====== */

@@ -87,7 +87,10 @@ export default function ContactPage() {
       {/* mismo ancho/padding que About/Experience */}
       <section className="mx-auto max-w-5xl px-6 py-14 md:py-16">
         {/* contenedor unificado (SIN la línea izquierda) */}
-        <div className="relative rounded-3xl border-s bg-[var(--surface-2)]/85 p-6 md:p-10 shadow-brand ring-1 ring-[var(--border)]">
+        <div className="rounded-3xl border-s bg-[var(--surface-2)]/85 p-6 md:p-10 shadow-brand ring-1 ring-[var(--primary)]/10">
+          
+          
+          
           <motion.header
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}

@@ -3,27 +3,41 @@
 import { motion, type Variants, useReducedMotion } from "framer-motion";
 
 const experiences = [
-    {
+
+        {
         year: "2025 – Actualidad",
-        title: "Proyecto Final de Carrera – Instituto Cura Brochero",
-        role: "Líder de Proyecto & Frontend",
+        title: "SIAD · Sistema académico integral",
+        role: "Product owner & Frontend",
+        category: "Facultad",
         description:
-        "Desarrollo en Angular, queries SQL en PostgreSQL, planificación de sprints en Jira y liderazgo técnico en un sistema de gestión educativa.",
-    },
-    {
-        year: "2025 – En desarrollo",
-        title: "Obras – Proyecto Freelance (Constructora)",
-        role: "Frontend Developer",
-        description:
-        "Aplicación de gestión para constructora, desarrollada con Angular + PrimeNG. Enfocada en modularidad, rendimiento y escalabilidad.",
+        "Fortalecí liderazgo y organización: planificación por sprints, negociación de alcance, documentación clara y coordinación entre roles con foco en calidad y tiempos."
     },
     {
         year: "2024 – 2025",
-        title: "Pasantía / Shadow – ENCODE S.A",
-        role: "Frontend Developer & QA",
+        title: "ENCODE S.A.",
+        role: "Shadow · Frontend & QA",
+        category: "Shadow/Prácticas",
         description:
-        "Angular + testing manual en Jira, GitHub y exposición a Selenium + Python. Trabajo en equipo bajo Scrum.",
+        "Observación y aprendizaje con testers y frontenders: flujo de QA en Jira, Git/GitHub y exposición a metodologías ágiles (Scrum)."
     },
+    {
+        year: "2025 – En desarrollo",
+        title: "Obras · Panel de gestión (Constructora)",
+        role: "Frontend Developer",
+        category: "Freelance/Colaboradores",
+        description:
+        "Aprendí a traducir procesos de obra en flujos claros, priorizar usabilidad bajo presión real y resolver casos borde de stock/devoluciones con criterios consistentes."
+    },
+    {
+        year: "2025",
+        title: "AI Trader MVP",
+        role: "Frontend",
+        category: "Freelance/Colaboradores",
+        description:
+        "Profundicé en pensamiento experimental: definir hipótesis, medir resultados con métricas comparables y separar lógica de presentación para iterar rápido y con trazabilidad."
+    },
+
+    
     ];
 
     export default function ExperiencePage() {

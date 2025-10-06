@@ -1,32 +1,33 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   PALETA (claro/oscuro) — verdes/teal sin celestes
+  PALETA (claro/oscuro) — verdes/teal sin celestes
 ============================================================================ */
-:root {
-  /* Base claro */
-  --bg:        #F7FBFD;   /* fondo casi blanco con tinte frío */
-  --fg:        #0E2626;   /* texto principal petróleo */
-  --muted:     #3A5D5C;   /* texto secundario verdoso */
+:root{
+  --bg:        #EFF5F2;
+  --fg:        #0D2322;
+  --muted:     #3A5D5C;
 
-  /* Superficies y bordes */
-  --surface:   #FFFFFF;   /* tarjetas/botones */
-  --surface-2: #F1F7F5;   /* secciones suaves */
-  --border:    #CFE4DF;   /* borde sutil verdoso */
+  /* Superficie unificada (tonalidad verdosa) */
+  --surface:   #D9E9E2;      /* cards / botones / secciones */
+  --surface-2: var(--surface);
+  --border:    #AFCFC4;
 
-  /* Marca / acentos (verde/teal) */
-  --primary:       #0F7A70; /* teal profundo */
-  --primary-400:   #34D399; /* emerald 400 */
-  --accent:        #22C55E; /* emerald 500 */
-  --accent-2:      #10B981; /* emerald 500/teal */
-  --ring:          #10B981; /* focus */
+  /* Marca / acentos */
+  --primary:       #0F7A70;
+  --primary-400:   #34D399;
+  --accent:        #22C55E;
+  --accent-2:      #10B981;
+  --ring:          #10B981;
 
-  /* Plata (chips/ghost) */
+  /* Neutros / sombra */
   --silver:     #E9EEF3;
   --silver-ink: #2B3540;
-
-  /* Sombras NEUTRAS (sin tinte) */
   --shadow:     0 18px 48px rgba(0,0,0,.10);
+
+  /* Estados (opcional, mantienen el verde) */
+  --surface-hover:  color-mix(in oklab, var(--surface) 92%, var(--primary) 8%);
+  --surface-active: color-mix(in oklab, var(--surface) 85%, var(--primary) 15%);
 }
 
 .dark {
