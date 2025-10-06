@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // nada de output-export para que me de la ruta de la api
+
 };
 
 export default nextConfig;
