@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+
+type Status = "idle" | "loading" | "ok" | "error";
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -9,8 +11,10 @@ export default function ContactPage() {
     email: "",
     subject: "",
     message: "",
+    honeypot: "", // anti-bot oculto
   });
   const [attempted, setAttempted] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -22,22 +26,36 @@ export default function ContactPage() {
   const msgOk = msgLen >= 25;
   const canSubmit = nameOk && emailOk && msgOk;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Ocultar toast automáticamente
+  useEffect(() => {
+    if (status === "ok" || status === "error") {
+      const t = setTimeout(() => setStatus("idle"), 3500);
+      return () => clearTimeout(t);
+    }
+  }, [status]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setAttempted(true);
-    if (!canSubmit) return;
+    if (!canSubmit || status === "loading") return;
 
-    const to = "cabrierlautaro4@gmail.com";
-    const subject = encodeURIComponent(
-      form.subject || `Mensaje desde el portfolio - ${form.name}`
-    );
-    const body = encodeURIComponent(
-      `Nombre: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
-    );
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    try {
+      setStatus("loading");
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form), // { name, email, subject, message, honeypot }
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.ok) throw new Error(data?.error || "Error");
 
-    setForm({ name: "", email: "", subject: "", message: "" });
-    setAttempted(false);
+      setStatus("ok");
+      setForm({ name: "", email: "", subject: "", message: "", honeypot: "" });
+      setAttempted(false);
+    } catch (err) {
+      console.error(err);
+      setStatus("error");
+    }
   };
 
   return (
@@ -48,6 +66,23 @@ export default function ContactPage() {
         <div className="absolute top-32 right-1/5 h-72 w-72 rounded-full grad-brand blur-3xl opacity-15 animate-blob [animation-delay:4s]" />
         <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full grad-brand blur-3xl opacity-15 animate-blob [animation-delay:8s]" />
       </div>
+
+      {/* TOAST */}
+      {(status === "ok" || status === "error") && (
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`fixed right-4 top-4 z-[60] rounded-lg border px-4 py-3 text-sm shadow-lg ${
+            status === "ok"
+              ? "border-white/20 bg-white/10 text-white"
+              : "border-red-400/40 bg-red-500/10 text-red-200"
+          }`}
+        >
+          {status === "ok"
+            ? "✅ Mensaje enviado con éxito. ¡Gracias!"
+            : "⚠️ No se pudo enviar. Probá nuevamente en unos minutos."}
+        </motion.div>
+      )}
 
       {/* mismo ancho/padding que About/Experience */}
       <section className="mx-auto max-w-5xl px-6 py-14 md:py-16">
@@ -74,6 +109,17 @@ export default function ContactPage() {
             onSubmit={handleSubmit}
             className="w-full max-w-3xl mx-auto"
           >
+            {/* honeypot anti-bot (oculto) */}
+            <input
+              type="text"
+              name="honeypot"
+              value={form.honeypot}
+              onChange={handleChange}
+              className="hidden"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
             {/* Nombre */}
             <label className="block text-sm font-medium text-[var(--fg)]">
               Nombre
@@ -156,13 +202,16 @@ export default function ContactPage() {
 
             {/* Botón */}
             <motion.button
-              whileHover={{ scale: canSubmit ? 1.03 : 1 }}
-              whileTap={{ scale: canSubmit ? 0.98 : 1 }}
+              whileHover={{ scale: canSubmit && status !== "loading" ? 1.03 : 1 }}
+              whileTap={{ scale: canSubmit && status !== "loading" ? 0.98 : 1 }}
               type="submit"
+              disabled={status === "loading"}
               className={`mt-6 rounded-xl px-5 py-2 text-sm font-semibold transition
-                          ${canSubmit ? "btn btn-primary" : "btn opacity-60 cursor-not-allowed"}`}
+                          ${canSubmit && status !== "loading"
+                            ? "btn btn-primary"
+                            : "btn opacity-60 cursor-not-allowed"}`}
             >
-              Enviar mensaje
+              {status === "loading" ? "Enviando..." : "Enviar mensaje"}
             </motion.button>
           </motion.form>
         </div>

@@ -5,7 +5,6 @@ import { Mail, Github, Linkedin, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Stagger, item } from "@/app/components/Stagger";
 import { ANIM } from "../../lib/anim";
-import RocketIntro from "@/app/components/RocketIntro";
 
 export default function Hero() {
   const BASE_DELAY = 0.25;
@@ -112,10 +111,6 @@ export default function Hero() {
           </Stagger>
         </motion.div>
       </div>
-
-      {/* 🚀 Rocket intro (dispara el vuelo; sin cambiar tema automáticamente) */}
-<RocketIntro autoFire clickThemeOnFinish />
-
 
     </section>
   );
