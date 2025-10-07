@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { Github, Globe, ExternalLink, Wrench, Brain, FolderGit2 } from "lucide-react";
 import Link from "next/link";
@@ -26,7 +26,7 @@ const projects: Project[] = [
   id: "siad",
   titulo: "SIAD",
   subtitulo: "Sistema académico integral",
-  periodo: "2023 · Proyecto académico / side project",
+  periodo: "2025 · Proyecto académico / side project",
   resumen:
     "Plataforma web de gestión académica desarrollada con Angular + PrimeNG, NestJS y PostgreSQL. Permite administrar materias, usuarios, exámenes finales y avisos segmentados según el rol del usuario. Se realizaron pruebas funcionales y de interfaz durante el desarrollo para garantizar la calidad.",
   stack: ["Angular", "PrimeNG", "NestJS", "PostgreSQL", "JWT", "RxJS", "Docker", "TypeScript", "Testing"],
@@ -114,8 +114,25 @@ const EXTRA_DELAYS = [0.5, 0.6, 0.2];
 function ProjectCard({ p, index }: { p: Project; index: number }) {
   const extra = EXTRA_DELAYS[index % EXTRA_DELAYS.length];
   const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { amount: 0.25, once: true });
+
+  // dispara un poco antes para mobile (viewport más permisivo)
+  const inView = useInView(ref, {
+    amount: 0.2,
+    once: true,
+    margin: "-10% 0px",           // entra antes de estar totalmente visible
+  });
+
   const [hover, setHover] = useState(false);
+
+  // ---- Fallback para móvil: auto-mostrar 0.8–1.2s después de montar ----
+  const [prefetch, setPrefetch] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined" && matchMedia("(hover: none)").matches) {
+      const t = setTimeout(() => setPrefetch(true), 1000); // 1s luego de abrir la pantalla
+      return () => clearTimeout(t);
+    }
+  }, []);
+  const showNow = inView || prefetch; // si es touch, entra solo
 
   const innerContainer = {
     hidden: { opacity: 0 },
@@ -142,10 +159,10 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
       variants={item}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      /* card de tu paleta: fondo, borde y sombra correctos */
       className="rounded-2xl p-5 sm:p-6 mb-8 card shadow-brand"
     >
-      <motion.div variants={innerContainer} initial="hidden" animate={inView ? "show" : "hidden"}>
+      {/* usa showNow */}
+      <motion.div variants={innerContainer} initial="hidden" animate={showNow ? "show" : "hidden"}>
         {/* Encabezado */}
         <motion.div
           variants={innerItem}
