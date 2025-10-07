@@ -22,8 +22,7 @@ export default function ContactPage() {
 
   const emailOk = useMemo(() => /\S+@\S+\.\S+/.test(form.email), [form.email]);
   const nameOk = form.name.trim().length > 0;
-  const msgLen = form.message.trim().length;
-  const msgOk = msgLen >= 25;
+  const msgOk  = form.message.trim().length >= 25;
   const canSubmit = nameOk && emailOk && msgOk;
 
   // Ocultar toast automáticamente
@@ -41,19 +40,37 @@ export default function ContactPage() {
 
     try {
       setStatus("loading");
+
+      // Enviamos sólo lo que tu API espera
+      const payload = {
+        name: form.name,
+        email: form.email,
+        subject: form.subject,
+        message: form.message,
+      };
+
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form), // { name, email, subject, message, honeypot }
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
       });
-      const data = await res.json();
-      if (!res.ok || !data?.ok) throw new Error(data?.error || "Error");
+
+      const ct = res.headers.get("content-type") || "";
+      const body = ct.includes("json") ? await res.json() : await res.text();
+      console.log("CONTACT RES", res.status, body);
+
+      if (!res.ok || (typeof body === "object" && body?.ok === false)) {
+        throw new Error(
+          (typeof body === "object" && (body?.detail || body?.error)) ||
+            res.statusText
+        );
+      }
 
       setStatus("ok");
       setForm({ name: "", email: "", subject: "", message: "", honeypot: "" });
       setAttempted(false);
     } catch (err) {
-      console.error(err);
+      console.error("CONTACT ERR", err);
       setStatus("error");
     }
   };
@@ -67,16 +84,18 @@ export default function ContactPage() {
         <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full grad-brand blur-3xl opacity-15 animate-blob [animation-delay:8s]" />
       </div>
 
-      {/* TOAST */}
+      {/* TOAST (sólido, rojo suave; responsive; auto-oculta) */}
       {(status === "ok" || status === "error") && (
         <motion.div
+          role="status"
+          aria-live="polite"
           initial={{ opacity: 0, y: -6 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`fixed right-4 top-4 z-[60] rounded-lg border px-4 py-3 text-sm shadow-lg ${
-            status === "ok"
-              ? "border-white/20 bg-white/10 text-white"
-              : "border-red-400/40 bg-red-500/10 text-red-200"
-          }`}
+          className={`fixed z-[60] mx-4 mt-4 rounded-lg border px-4 py-3 text-sm shadow-lg
+                      sm:right-4 sm:top-4 sm:mx-0 sm:mt-0
+                      ${status === "ok"
+                        ? "border-emerald-300 bg-emerald-100 text-emerald-900"
+                        : "border-red-300 bg-red-100 text-red-900"}`}
         >
           {status === "ok"
             ? "✅ Mensaje enviado con éxito. ¡Gracias!"
@@ -88,9 +107,6 @@ export default function ContactPage() {
       <section className="mx-auto max-w-5xl px-6 py-14 md:py-16">
         {/* contenedor unificado (SIN la línea izquierda) */}
         <div className="rounded-3xl border-s bg-[var(--surface-2)]/85 p-6 md:p-10 shadow-brand ring-1 ring-[var(--primary)]/10">
-          
-          
-          
           <motion.header
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -110,6 +126,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
             onSubmit={handleSubmit}
+            noValidate
             className="w-full max-w-3xl mx-auto"
           >
             {/* honeypot anti-bot (oculto) */}
@@ -122,21 +139,22 @@ export default function ContactPage() {
               tabIndex={-1}
               autoComplete="off"
             />
-          {/* Nombre */}
-          <label className="block text-sm font-medium text-[var(--fg)]">
-            Nombre
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-              placeholder="Tu nombre"
-              className="mt-1 w-full rounded-xl bg-[var(--surface)] px-3 py-2
-                          text-[var(--fg)] placeholder:text-muted/70 outline-none transition-colors
-                          border border-s focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]"
-            />
-          </label>
+
+            {/* Nombre */}
+            <label className="block text-sm font-medium text-[var(--fg)]">
+              Nombre
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                required
+                placeholder="Tu nombre"
+                className="mt-1 w-full rounded-xl bg-[var(--surface)] px-3 py-2
+                           text-[var(--fg)] placeholder:text-muted/70 outline-none transition-colors
+                           border border-s focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]"
+              />
+            </label>
 
             {/* Email + Asunto */}
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -172,9 +190,9 @@ export default function ContactPage() {
                   value={form.subject}
                   onChange={handleChange}
                   placeholder="Consulta / Propuesta / Feedback"
-    className="mt-1 w-full rounded-xl bg-[var(--surface)] px-3 py-2
-                text-[var(--fg)] placeholder:text-muted/70 outline-none transition-colors
-                border border-s focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]"
+                  className="mt-1 w-full rounded-xl bg-[var(--surface)] px-3 py-2
+                             text-[var(--fg)] placeholder:text-muted/70 outline-none transition-colors
+                             border border-s focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]"
                 />
               </label>
             </div>
@@ -207,7 +225,7 @@ export default function ContactPage() {
               whileHover={{ scale: canSubmit && status !== "loading" ? 1.03 : 1 }}
               whileTap={{ scale: canSubmit && status !== "loading" ? 0.98 : 1 }}
               type="submit"
-              disabled={status === "loading"}
+              disabled={!canSubmit || status === "loading"}
               className={`mt-6 rounded-xl px-5 py-2 text-sm font-semibold transition
                           ${canSubmit && status !== "loading"
                             ? "btn btn-primary"
