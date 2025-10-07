@@ -103,9 +103,16 @@ export default function Hero() {
                 </Link>
               </motion.div>
               <motion.div variants={item}>
-                <Link href="/cv/lautaro-cabrier-cv.pdf" download className="btn">
-                  Descargar CV
-                </Link>
+<Link
+  href="https://drive.google.com/file/d/1tS8ohmmmBJCbJzsf-lgTvlkFPQkPGpGa/view?usp=sharing"
+  download
+  className="btn"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Descargar CV
+</Link>
+
               </motion.div>
             </motion.div>
           </Stagger>

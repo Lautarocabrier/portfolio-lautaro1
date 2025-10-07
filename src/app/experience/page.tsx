@@ -18,7 +18,7 @@ const experiences = [
         role: "Shadow · Frontend & QA",
         category: "Shadow/Prácticas",
         description:
-        "Observación y aprendizaje con testers y frontenders: flujo de QA en Jira, Git/GitHub y exposición a metodologías ágiles (Scrum)."
+        "Observación y aprendizaje con testers QA y desarolladores front end: flujo de trabajo en Jira, Git/GitHub y exposición a metodologías ágiles (Scrum)."
     },
     {
         year: "2025 – En desarrollo",
