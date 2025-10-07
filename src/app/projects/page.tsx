@@ -43,7 +43,7 @@ const projects: Project[] = [
     "Integración segura entre frontend (Angular) y backend (NestJS + PostgreSQL).",
     "Buenas prácticas de QA y revisión visual de componentes con PrimeNG."
   ],
-  repo: "https://github.com/tu-usuario/siade"
+  repo: "https://github.com/federicowoodward/siaade-mejorado.git"
 },
 
   {
@@ -70,7 +70,7 @@ const projects: Project[] = [
     "Comunicación efectiva entre front y backend (simulación con mocks y endpoints)."
   ],
 
-  repo: "https://github.com/tu-usuario/obras-frontend",
+  repo: "https://github.com/Lautarocabrier/obrasApp.git",
 },
 
 
