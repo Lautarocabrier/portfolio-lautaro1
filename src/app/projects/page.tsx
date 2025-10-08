@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { motion, useInView } from "framer-motion";
 import { Github, Globe, ExternalLink, Wrench, Brain, FolderGit2 } from "lucide-react";
 import Link from "next/link";
@@ -115,51 +115,75 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
   const extra = EXTRA_DELAYS[index % EXTRA_DELAYS.length];
   const ref = useRef<HTMLDivElement | null>(null);
 
-  // dispara un poco antes para mobile (viewport más permisivo)
+  // --- NUEVO: detectar touch para ajustar disparo/animaciones en mobile ---
+  const isTouch =
+    typeof window !== "undefined" &&
+    typeof matchMedia !== "undefined" &&
+    matchMedia("(hover: none)").matches;
+
+  // dispara antes en mobile (evita “tocar/scroll de nuevo”)
   const inView = useInView(ref, {
-    amount: 0.2,
+    amount: isTouch ? 0.08 : 0.2,
     once: true,
-    margin: "-10% 0px",           // entra antes de estar totalmente visible
+    // rootMargin: top right bottom left
+    margin: isTouch ? "-35% 0px -10% 0px" : "-10% 0px -10% 0px",
   });
 
   const [hover, setHover] = useState(false);
 
-  // ---- Fallback para móvil: auto-mostrar 0.8–1.2s después de montar ----
+  // ---- Fallback para móvil: auto-mostrar ~1s después de montar ----
   const [prefetch, setPrefetch] = useState(false);
   useEffect(() => {
-    if (typeof window !== "undefined" && matchMedia("(hover: none)").matches) {
-      const t = setTimeout(() => setPrefetch(true), 1000); // 1s luego de abrir la pantalla
+    if (isTouch) {
+      const t = setTimeout(() => setPrefetch(true), 1000);
       return () => clearTimeout(t);
     }
-  }, []);
+  }, [isTouch]);
+
   const showNow = inView || prefetch; // si es touch, entra solo
 
-  const innerContainer = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        duration: ANIM.d,
-        ease: ANIM.ease,
-        delay: hover ? 0 : extra,
-        staggerChildren: 0.12,
-        delayChildren: hover ? 0 : extra,
+  // --- Ajustes mínimos de transición: en touch sin delays/stagger y duración corta ---
+  const innerContainer = useMemo(
+    () => ({
+      hidden: { opacity: 0 },
+      show: {
+        opacity: 1,
+        transition: {
+          duration: isTouch ? Math.max(ANIM.d * 0.6, 0.18) : ANIM.d,
+          ease: ANIM.ease,
+          delay: isTouch ? 0 : (hover ? 0 : extra),
+          staggerChildren: isTouch ? 0 : 0.12,
+          delayChildren: isTouch ? 0 : (hover ? 0 : extra),
+        },
       },
-    },
-  };
+    }),
+    [isTouch, hover, extra]
+  );
 
-  const innerItem = {
-    hidden: { opacity: 0, y: 18 },
-    show: { opacity: 1, y: 0, transition: { duration: ANIM.d, ease: ANIM.ease } },
-  };
+  const innerItem = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: 18 },
+      show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: isTouch ? Math.max(ANIM.d * 0.6, 0.18) : ANIM.d,
+          ease: ANIM.ease,
+        },
+      },
+    }),
+    [isTouch]
+  );
 
   return (
     <motion.article
       ref={ref}
       variants={item}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={() => !isTouch && setHover(true)}
+      onMouseLeave={() => !isTouch && setHover(false)}
       className="rounded-2xl p-5 sm:p-6 mb-8 card shadow-brand"
+      // Pinta incremental nativo, sin cambiar visual
+      style={{ contentVisibility: "auto", contain: "content" }}
     >
       {/* usa showNow */}
       <motion.div variants={innerContainer} initial="hidden" animate={showNow ? "show" : "hidden"}>
