@@ -115,34 +115,34 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
   const extra = EXTRA_DELAYS[index % EXTRA_DELAYS.length];
   const ref = useRef<HTMLDivElement | null>(null);
 
-  // --- NUEVO: detectar touch para ajustar disparo/animaciones en mobile ---
+  // Detectar dispositivo táctil
   const isTouch =
     typeof window !== "undefined" &&
     typeof matchMedia !== "undefined" &&
     matchMedia("(hover: none)").matches;
 
-  // dispara antes en mobile (evita “tocar/scroll de nuevo”)
+  // IntersectionObserver (desktop) / sensibilidad mobile
   const inView = useInView(ref, {
     amount: isTouch ? 0.08 : 0.2,
     once: true,
-    // rootMargin: top right bottom left
     margin: isTouch ? "-35% 0px -10% 0px" : "-10% 0px -10% 0px",
   });
 
   const [hover, setHover] = useState(false);
 
-  // ---- Fallback para móvil: auto-mostrar ~1s después de montar ----
+  // Fallback mobile: asegurar render sin interacción
   const [prefetch, setPrefetch] = useState(false);
   useEffect(() => {
     if (isTouch) {
-      const t = setTimeout(() => setPrefetch(true), 1000);
+      const t = setTimeout(() => setPrefetch(true), 120);
       return () => clearTimeout(t);
     }
   }, [isTouch]);
 
-  const showNow = inView || prefetch; // si es touch, entra solo
+  // ⟶ Clave: en mobile mostramos SIEMPRE al entrar
+  const showNow = isTouch ? true : (inView || prefetch);
 
-  // --- Ajustes mínimos de transición: en touch sin delays/stagger y duración corta ---
+  // Transiciones: en touch sin delays/stagger y duración menor
   const innerContainer = useMemo(
     () => ({
       hidden: { opacity: 0 },
@@ -182,10 +182,8 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
       onMouseEnter={() => !isTouch && setHover(true)}
       onMouseLeave={() => !isTouch && setHover(false)}
       className="rounded-2xl p-5 sm:p-6 mb-8 card shadow-brand"
-      // Pinta incremental nativo, sin cambiar visual
       style={{ contentVisibility: "auto", contain: "content" }}
     >
-      {/* usa showNow */}
       <motion.div variants={innerContainer} initial="hidden" animate={showNow ? "show" : "hidden"}>
         {/* Encabezado */}
         <motion.div
