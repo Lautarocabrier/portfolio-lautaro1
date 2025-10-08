@@ -178,9 +178,7 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
   return (
     <motion.article
       ref={ref}
-      // ⟶ En mobile NO heredamos variantes del padre (evita quedarnos "hidden")
-      variants={isTouch ? undefined : item}
-      initial={isTouch ? false : undefined}
+      variants={item}
       onMouseEnter={() => !isTouch && setHover(true)}
       onMouseLeave={() => !isTouch && setHover(false)}
       className="rounded-2xl p-5 sm:p-6 mb-8 card shadow-brand"
